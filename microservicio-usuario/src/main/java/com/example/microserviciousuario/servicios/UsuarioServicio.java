@@ -21,8 +21,13 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public Optional<Usuario> traerPorId(Long id) {
-        return usuarioRepositorio.findById(id);
+    public Optional<Usuario> traerPorId(Long id) throws Exception {
+        Optional<Usuario> usuarioRecuperado = usuarioRepositorio.findById(id);
+        if (usuarioRecuperado.isPresent()) {
+            return usuarioRecuperado;
+        } else {
+            throw new Exception("No se pudo encontrar el usuario con el ID proporcionado.");
+        }
     }
 
     @Transactional
@@ -44,7 +49,7 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public Object editarUsuario(Long id, Usuario usuario) throws Exception {
+    public Usuario editarUsuario(Long id, Usuario usuario) throws Exception {
         try{
             Optional<Usuario> usuarioEditar = this.traerPorId(id);
             if(usuarioEditar.isPresent()) {
@@ -55,7 +60,7 @@ public class UsuarioServicio {
                 throw new Exception("No se ha encontrado el usuario que intenta editar.");
             }
         } catch (Exception e){
-            throw new Exception("No se ha editar el usuario.");
+            throw new Exception("No se ha editado el usuario.");
         }
     }
 
