@@ -1,5 +1,6 @@
 package com.example.microserviciousuario.controladores;
 
+import com.example.microserviciousuario.modelos.dto.UsuarioCreacion;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.servicios.UsuarioServicio;
 import lombok.Data;
@@ -42,7 +43,7 @@ public class UsuarioControlador {
      * Crea a un usuario
      */
     @PostMapping("")
-    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<?> crearUsuario(@RequestBody UsuarioCreacion usuario){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.crearUsuario(usuario));
         } catch (Exception e) {

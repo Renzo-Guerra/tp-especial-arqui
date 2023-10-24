@@ -5,12 +5,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @Table(name = "usuario")
 public class Usuario implements Serializable {
     @Id
@@ -22,4 +27,16 @@ public class Usuario implements Serializable {
 
     @Column(name = "fecha_alta")
     private LocalDateTime fecha;
+
+    public Usuario() {
+
+    }
+
+    public Usuario(String nombre, String apellido) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fecha = LocalDateTime.now();
+    }
+
+
 }

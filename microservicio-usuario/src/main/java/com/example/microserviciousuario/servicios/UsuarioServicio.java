@@ -1,5 +1,6 @@
 package com.example.microserviciousuario.servicios;
 
+import com.example.microserviciousuario.modelos.dto.UsuarioCreacion;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.repositorios.UsuarioRepositorio;
 import jakarta.transaction.Transactional;
@@ -31,8 +32,9 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public Usuario crearUsuario(Usuario usuario) {
-        return usuarioRepositorio.save(usuario);
+    public Usuario crearUsuario(UsuarioCreacion usuario) {
+        Usuario nuevoUsuario = new Usuario(usuario.getNombre(), usuario.getApellido());
+        return usuarioRepositorio.save(nuevoUsuario);
     }
 
     @Transactional
