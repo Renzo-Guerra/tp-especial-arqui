@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,11 +11,13 @@
         <module name="microservicio-usuario" />
         <module name="microservicio-cuenta" />
         <module name="microservicio-monopatin" />
+        <module name="microservicio-administracion" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="microservicio-administracion" options="-parameters" />
       <module name="microservicio-cuenta" options="-parameters" />
       <module name="microservicio-monopatin" options="-parameters" />
       <module name="microservicio-usuario" options="-parameters" />
