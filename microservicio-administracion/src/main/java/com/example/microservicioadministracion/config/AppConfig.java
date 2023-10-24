@@ -1,4 +1,4 @@
-package com.example.microserviciomonopatin.config;
+package com.example.microservicioadministracion.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,6 +6,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class AppConfig {
-    @Bean("monopatinClienteRest")
+    @Bean("clienteRest")
     public RestTemplate registrarRestTemplate(){ return new RestTemplate(); }
 }
