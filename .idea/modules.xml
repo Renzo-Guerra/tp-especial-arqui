@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/microservicio-administracion/microservicio-administracion.iml" filepath="$PROJECT_DIR$/microservicio-administracion/microservicio-administracion.iml" />
-      <module fileurl="file://$PROJECT_DIR$/microservicio-cuenta/microservicio-cuenta.iml" filepath="$PROJECT_DIR$/microservicio-cuenta/microservicio-cuenta.iml" />
-      <module fileurl="file://$PROJECT_DIR$/microservicio-monopatin/microservicio-monopatin_viaje.iml" filepath="$PROJECT_DIR$/microservicio-monopatin/microservicio-monopatin_viaje.iml" />
-      <module fileurl="file://$PROJECT_DIR$/microservicio-parada/microservicio-parada.iml" filepath="$PROJECT_DIR$/microservicio-parada/microservicio-parada.iml" />
-      <module fileurl="file://$PROJECT_DIR$/microservicio-usuario/microservicio-usuario.iml" filepath="$PROJECT_DIR$/microservicio-usuario/microservicio-usuario.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tpEspecial.iml" filepath="$PROJECT_DIR$/.idea/tpEspecial.iml" />
     </modules>
   </component>

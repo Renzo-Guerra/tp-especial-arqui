@@ -3,13 +3,29 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="microservicio-parada" />
+        <module name="microservicio-monopatin_viaje" />
+        <module name="microservicio-usuario_cuenta" />
+        <module name="microservicio-administracion" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="microservicio-administracion" target="17" />
       <module name="microservicio-cuenta" target="1.8" />
       <module name="microservicio-monopatin" target="1.8" />
       <module name="microservicio-usuario" target="1.8" />
       <module name="microservicio-viaje" target="17" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="microservicio-administracion" options="-parameters" />
+      <module name="microservicio-monopatin_viaje" options="-parameters" />
+      <module name="microservicio-parada" options="-parameters" />
+      <module name="microservicio-usuario_cuenta" options="-parameters" />
+    </option>
   </component>
 </project>
