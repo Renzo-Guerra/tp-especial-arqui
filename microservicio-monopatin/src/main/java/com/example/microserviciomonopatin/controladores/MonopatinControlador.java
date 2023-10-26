@@ -20,7 +20,7 @@ public class MonopatinControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerTodos());
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -29,7 +29,7 @@ public class MonopatinControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerPorId(id_monopatin));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class MonopatinControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.crear(monopatin));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 

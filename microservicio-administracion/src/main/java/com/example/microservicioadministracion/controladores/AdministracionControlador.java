@@ -1,16 +1,12 @@
 package com.example.microservicioadministracion.controladores;
 
+import com.example.microservicioadministracion.modelos.entidades.Monopatin;
 import com.example.microservicioadministracion.modelos.entidades.Rol;
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
-import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
-import com.example.microserviciomonopatin.modelos.entidades.MonopatinCambiarEstadoDTO;
-import com.example.microserviciomonopatin.servicios.MonopatinServicio;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @Data
@@ -27,7 +23,7 @@ public class AdministracionControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodosMonopatin());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -36,9 +32,28 @@ public class AdministracionControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.editarEstadoMonopatin(id, estado));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
+
+    @PostMapping("/monopatines")
+    public ResponseEntity<?> agregarMonopatin(@RequestBody Monopatin monopatin){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarMonopatin(monopatin));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/monopatines/{id}")
+    public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.eliminarMonopatin(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
 
     /**
      * Devuelve todos los roles
