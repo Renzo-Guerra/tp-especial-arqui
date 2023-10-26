@@ -1,4 +1,4 @@
-package com.example.microserviciocuenta.modelos.entidades;
+package com.example.microserviciousuario.modelos.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "cuenta")
-public class Cuenta  implements Serializable {
+public class Cuenta implements Serializable {
     @Id
     private Long id;
 

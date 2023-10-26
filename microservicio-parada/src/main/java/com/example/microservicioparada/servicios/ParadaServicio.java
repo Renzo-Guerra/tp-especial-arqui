@@ -1,6 +1,6 @@
 package com.example.microservicioparada.servicios;
 
-import com.example.microservicioparada.entidades.Parada;
+import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.repositorios.ParadaRespositorio;
 import jakarta.transaction.Transactional;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.microservicioparada.entidades;
+package com.example.microservicioparada.modelos.entidades;
 
 
 import jakarta.persistence.*;
@@ -13,4 +13,5 @@ public class Parada {
     private Long id_parada;
     private Double latitud;
     private Double longitud;
+    private Boolean isHabilitada;
 }

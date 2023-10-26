@@ -1,6 +1,6 @@
-package com.example.microserviciocuenta.repositorios;
+package com.example.microserviciousuario.repositorios;
 
-import com.example.microserviciocuenta.modelos.entidades.Cuenta;
+import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

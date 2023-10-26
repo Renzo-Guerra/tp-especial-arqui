@@ -1,7 +1,6 @@
-package com.example.microserviciocuenta.servicios;
+package com.example.microserviciousuario.servicios;
 
-import com.example.microserviciocuenta.modelos.entidades.Cuenta;
-import com.example.microserviciocuenta.repositorios.CuentaRepositorio;
+import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CuentaServicio {
-    private final CuentaRepositorio cuentaRepositorio;
+    private final CuentaServicio cuentaRepositorio;
 
     @Transactional
     public Iterable<Cuenta> traerTodas() {

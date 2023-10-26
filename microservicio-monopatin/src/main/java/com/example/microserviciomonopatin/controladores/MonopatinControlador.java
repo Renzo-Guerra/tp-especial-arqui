@@ -42,6 +42,7 @@ public class MonopatinControlador {
         }
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id){
         try{

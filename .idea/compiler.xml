@@ -8,14 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="microservicio-parada" />
+        <module name="microservicio-usuario_cuenta" />
         <module name="microservicio-viaje" />
-        <module name="microservicio-usuario" />
-        <module name="microservicio-cuenta" />
         <module name="microservicio-monopatin" />
         <module name="microservicio-administracion" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="microservicio-cuenta" target="17" />
       <module name="microservicio-mantenimiento" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -25,7 +25,7 @@
       <module name="microservicio-cuenta" options="-parameters" />
       <module name="microservicio-monopatin" options="-parameters" />
       <module name="microservicio-parada" options="-parameters" />
-      <module name="microservicio-usuario" options="-parameters" />
+      <module name="microservicio-usuario_cuenta" options="-parameters" />
       <module name="microservicio-viaje" options="-parameters" />
     </option>
   </component>

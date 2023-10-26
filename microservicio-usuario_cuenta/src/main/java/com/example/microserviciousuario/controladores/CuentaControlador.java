@@ -1,7 +1,7 @@
-package com.example.microserviciocuenta.controladores;
+package com.example.microserviciousuario.controladores;
 
-import com.example.microserviciocuenta.modelos.entidades.Cuenta;
-import com.example.microserviciocuenta.servicios.CuentaServicio;
+import com.example.microserviciousuario.modelos.entidades.Cuenta;
+import com.example.microserviciousuario.servicios.CuentaServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
