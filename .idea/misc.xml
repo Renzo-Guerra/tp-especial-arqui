@@ -14,11 +14,15 @@
     </option>
     <option name="ignoredFiles">
       <set>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/microservicio-viaje/pom.xml" />
+=======
+        <option value="$PROJECT_DIR$/microservicio-cuenta/pom.xml" />
+>>>>>>> 50a3e44736b7dd4a773d10186eb22200cef3b2e9
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-20" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="corretto-20" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

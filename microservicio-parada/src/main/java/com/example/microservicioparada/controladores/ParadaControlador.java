@@ -1,6 +1,6 @@
 package com.example.microservicioparada.controladores;
 
-import com.example.microservicioparada.entidades.Parada;
+import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.servicios.ParadaServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -40,14 +40,14 @@ public class ParadaControlador {
         }
     }
 
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarParada(@PathVariable("id") Long id_parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.eliminar(id_parada));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }
+    }*/
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editarParada(@PathVariable("id") Long id_parada, @RequestBody Parada nuevaInfo){

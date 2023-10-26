@@ -1,6 +1,6 @@
 package com.example.microservicioparada.repositorios;
 
-import com.example.microservicioparada.entidades.Parada;
+import com.example.microservicioparada.modelos.entidades.Parada;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

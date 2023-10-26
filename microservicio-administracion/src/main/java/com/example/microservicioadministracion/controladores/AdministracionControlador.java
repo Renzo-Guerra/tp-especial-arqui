@@ -1,7 +1,6 @@
 package com.example.microservicioadministracion.controladores;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
-import com.example.microservicioadministracion.modelos.entidades.Rol;
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -53,6 +52,7 @@ public class AdministracionControlador {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
+
 
 
     /**

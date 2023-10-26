@@ -42,9 +42,6 @@ public class MonopatinControlador {
         }
     }
 
-    /**
-     * Nos dimos cuenta que no hay que eliminar una parada, sino cam
-     */
     /*
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id){
