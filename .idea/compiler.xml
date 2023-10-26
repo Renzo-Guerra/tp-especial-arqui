@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="microservicio-parada" />
         <module name="microservicio-viaje" />
         <module name="microservicio-usuario" />
         <module name="microservicio-cuenta" />
@@ -23,6 +24,7 @@
       <module name="microservicio-administracion" options="-parameters" />
       <module name="microservicio-cuenta" options="-parameters" />
       <module name="microservicio-monopatin" options="-parameters" />
+      <module name="microservicio-parada" options="-parameters" />
       <module name="microservicio-usuario" options="-parameters" />
       <module name="microservicio-viaje" options="-parameters" />
     </option>
