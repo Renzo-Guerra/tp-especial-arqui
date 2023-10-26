@@ -11,8 +11,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>microservicio-monopatin_viaje</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>microservicio-monopatin</name>
-	<description>microservicio-monopatin</description>
+	<name>microservicio-monopatin_viaje</name>
+	<description>microservicio-monopatin_viaje</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

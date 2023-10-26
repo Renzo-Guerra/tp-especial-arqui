@@ -4,22 +4,11 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/microservicio-monopatin/pom.xml" />
-        <option value="$PROJECT_DIR$/microservicio-usuario/pom.xml" />
-        <option value="$PROJECT_DIR$/microservicio-cuenta/pom.xml" />
-        <option value="$PROJECT_DIR$/microservicio-viaje/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicio-monopatin_viaje/pom.xml" />
         <option value="$PROJECT_DIR$/microservicio-administracion/pom.xml" />
         <option value="$PROJECT_DIR$/microservicio-parada/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicio-usuario_cuenta/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/microservicio-viaje/pom.xml" />
-=======
-        <option value="$PROJECT_DIR$/microservicio-cuenta/pom.xml" />
->>>>>>> 50a3e44736b7dd4a773d10186eb22200cef3b2e9
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="corretto-20" project-jdk-type="JavaSDK">
