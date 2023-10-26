@@ -42,6 +42,10 @@ public class MonopatinControlador {
         }
     }
 
+    /**
+     * Nos dimos cuenta que no hay que eliminar una parada, sino cam
+     */
+    /*
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id){
         try{
@@ -50,6 +54,7 @@ public class MonopatinControlador {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    */
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editarMonopatin(@PathVariable("id") Long idMonopatin, @RequestBody Monopatin nuevaInfo){

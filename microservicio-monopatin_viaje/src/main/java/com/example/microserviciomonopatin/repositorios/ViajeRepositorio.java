@@ -1,6 +1,6 @@
-package com.example.microservicioviaje.repositorios;
+package com.example.microserviciomonopatin.repositorios;
 
-import com.example.microservicioviaje.entidades.Viaje;
+import com.example.microserviciomonopatin.modelos.entidades.Viaje;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

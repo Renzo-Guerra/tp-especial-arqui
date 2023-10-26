@@ -1,7 +1,7 @@
-package com.example.microservicioviaje.servicios;
+package com.example.microserviciomonopatin.servicios;
 
-import com.example.microservicioviaje.entidades.Viaje;
-import com.example.microservicioviaje.repositorios.ViajeRepositorio;
+import com.example.microserviciomonopatin.modelos.entidades.Viaje;
+import com.example.microserviciomonopatin.repositorios.ViajeRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

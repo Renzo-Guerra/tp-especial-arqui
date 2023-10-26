@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>microservicio-monopatin</artifactId>
+            <artifactId>microservicio-monopatin_viaje</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

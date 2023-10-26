@@ -1,4 +1,4 @@
-package com.example.microservicioviaje.entidades;
+package com.example.microserviciomonopatin.modelos.entidades;
 
 import jakarta.persistence.*;
 import lombok.Data;

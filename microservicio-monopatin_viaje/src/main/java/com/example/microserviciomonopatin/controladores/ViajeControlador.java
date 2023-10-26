@@ -1,7 +1,7 @@
-package com.example.microservicioviaje.controladores;
+package com.example.microserviciomonopatin.controladores;
 
-import com.example.microservicioviaje.entidades.Viaje;
-import com.example.microservicioviaje.servicios.ViajeServicio;
+import com.example.microserviciomonopatin.modelos.entidades.Viaje;
+import com.example.microserviciomonopatin.servicios.ViajeServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.traerTodos());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -34,7 +34,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.traerPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo recuperar el dato.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.crearViaje(viaje));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo crear el viaje.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
