@@ -21,10 +21,14 @@ public class MonopatinServicio {
     }
 
     @Transactional
-    public Monopatin traerPorId(Long id_monopatin) {
+    public Monopatin traerPorId(Long id_monopatin) throws Exception {
         Optional<Monopatin> monopatin = monopatinRespositorio.findById(id_monopatin);
-        return monopatin.orElse(null);
 
+        if(monopatin.isEmpty()){
+            throw new Exception("No existe un monopatin con id '" + id_monopatin + "'!");
+        }
+
+        return monopatin.get();
     }
 
     @Transactional
@@ -37,12 +41,8 @@ public class MonopatinServicio {
     public Monopatin eliminar(Long id_monopatin) throws Exception {
         Monopatin monopatin_eliminar = this.traerPorId(id_monopatin);
 
-        if(monopatin_eliminar != null){
-            monopatinRespositorio.deleteById(id_monopatin);
-            return monopatin_eliminar;
-        }
-
-        throw new Exception("No existe monopatin con id '" + id_monopatin + "'!");
+        monopatinRespositorio.deleteById(id_monopatin);
+        return monopatin_eliminar;
     }
 
     @Transactional
@@ -50,35 +50,20 @@ public class MonopatinServicio {
         this.validarEstado(nuevaInfo.getEstado());
         Monopatin monopatin_editar = this.traerPorId(idMonopatin);
 
-        if(monopatin_editar != null){
-            monopatin_editar.setGps(nuevaInfo.getGps());
-            monopatin_editar.setLatitud(nuevaInfo.getLatitud());
-            monopatin_editar.setLongitud(nuevaInfo.getLongitud());
+        monopatin_editar.setGps(nuevaInfo.getGps());
+        monopatin_editar.setLatitud(nuevaInfo.getLatitud());
+        monopatin_editar.setLongitud(nuevaInfo.getLongitud());
 
-            return monopatinRespositorio.save(monopatin_editar);
-        }
-
-        throw new Exception("Usuario no encontrado!");
+        return monopatinRespositorio.save(monopatin_editar);
     }
+
+
+    // Valida que el estado del monopatin sea valido
     private void validarEstado(String estado) throws Exception {
         String[] estados_monopatin_validos = {"disponible", "ocupado", "mantenimiento", "deshabilitado"};
 
         if(!Arrays.asList(estados_monopatin_validos).contains(estado)){
             throw new Exception("El estado '" + estado + "' es invalido! Estados validos: " + Arrays.toString(estados_monopatin_validos));
         }
-    }
-
-    @Transactional
-    public Monopatin cambiarEstado(MonopatinCambiarEstadoDTO monopatin) throws Exception{
-        this.validarEstado(monopatin.getEstado());
-        Monopatin monopatin_editar = this.traerPorId(monopatin.getId());
-
-        if(monopatin_editar != null){
-            monopatin_editar.setEstado(monopatin.getEstado());
-
-            return monopatinRespositorio.save(monopatin_editar);
-        }
-
-        throw new Exception("No existe monopatin con id '" + monopatin.getId() + "'!");
     }
 }

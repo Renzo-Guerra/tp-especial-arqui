@@ -31,15 +31,26 @@ public class AdministracionServicio {
     }
 
     public Monopatin editarEstadoMonopatin(Long id_monopatin, String estado) throws Exception {
-        MonopatinCambiarEstadoDTO monopatinDto = new MonopatinCambiarEstadoDTO(id_monopatin, estado);
+        // Traemos el monopatin por id
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<MonopatinCambiarEstadoDTO> reqEntity = new HttpEntity<>(monopatinDto, headers);
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<Monopatin> respuesta = monopatinClienteRest.exchange(
-                "http://localhost:8002/monopatines/estado",
-                HttpMethod.PUT,
+                "http://localhost:8002/monopatines/" + id_monopatin,
+                HttpMethod.GET,
                 reqEntity,
-                new ParameterizedTypeReference<>() {
-                });
+                new ParameterizedTypeReference<>() {});
+
+        // Editamos el monopatin
+        Monopatin monopatin = respuesta.getBody();
+        monopatin.setEstado(estado);
+
+        // Lo guardamos ya modificado
+        HttpEntity<Monopatin> reqEntity2 = new HttpEntity<>(monopatin, headers);
+        ResponseEntity<Monopatin> respuesta2 = monopatinClienteRest.exchange(
+                "http://localhost:8002/monopatines/" + id_monopatin,
+                HttpMethod.PUT,
+                reqEntity2,
+                new ParameterizedTypeReference<>() {});
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta.getBody();

@@ -59,13 +59,4 @@ public class MonopatinControlador {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
-    @PutMapping("/estado")
-    public ResponseEntity<?> cambiarEstado(@RequestBody MonopatinCambiarEstadoDTO monopatin){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.cambiarEstado(monopatin));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
 }
