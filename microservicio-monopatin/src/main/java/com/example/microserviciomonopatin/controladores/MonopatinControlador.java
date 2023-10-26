@@ -1,7 +1,7 @@
 package com.example.microserviciomonopatin.controladores;
 
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
-import com.example.microserviciomonopatin.repositorios.MonopatinRespositorio;
+import com.example.microserviciomonopatin.modelos.entidades.MonopatinCambiarEstadoDTO;
 import com.example.microserviciomonopatin.servicios.MonopatinServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -55,6 +55,15 @@ public class MonopatinControlador {
     public ResponseEntity<?> editarMonopatin(@PathVariable("id") Long idMonopatin, @RequestBody Monopatin nuevaInfo){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.editar(idMonopatin, nuevaInfo));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/estado")
+    public ResponseEntity<?> cambiarEstado(@RequestBody MonopatinCambiarEstadoDTO monopatin){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.cambiarEstado(monopatin));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

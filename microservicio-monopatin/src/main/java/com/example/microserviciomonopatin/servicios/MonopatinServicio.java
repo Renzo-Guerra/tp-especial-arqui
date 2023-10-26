@@ -1,14 +1,13 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
+import com.example.microserviciomonopatin.modelos.entidades.MonopatinCambiarEstadoDTO;
 import com.example.microserviciomonopatin.repositorios.MonopatinRespositorio;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -55,8 +54,27 @@ public class MonopatinServicio {
             monopatin_editar.setLongitud(nuevaInfo.getLongitud());
 
             return monopatinRespositorio.save(monopatin_editar);
-        }else{
-            throw new Exception("Usuario no encontrado!");
         }
+
+        throw new Exception("Usuario no encontrado!");
+    }
+
+    @Transactional
+    public Monopatin cambiarEstado(MonopatinCambiarEstadoDTO monopatin) throws Exception{
+        String[] estados_monopatin_validos = {"libre", "uso", "mantenimiento", "deshabilitado"};
+
+        if(!Arrays.asList(estados_monopatin_validos).contains(monopatin.getEstado())){
+            throw new Exception("Estado ingresado invalido! Estados validos: " + Arrays.toString(estados_monopatin_validos));
+        }
+
+        Monopatin monopatin_editar = this.traerPorId(monopatin.getId());
+
+        if(monopatin_editar != null){
+            monopatin_editar.setEstado(monopatin.getEstado());
+
+            return monopatinRespositorio.save(monopatin_editar);
+        }
+
+        throw new Exception("Monopatin no encontrado!");
     }
 }

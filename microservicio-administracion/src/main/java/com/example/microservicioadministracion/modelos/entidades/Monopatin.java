@@ -1,4 +1,4 @@
-package com.example.microserviciomonopatin.modelos.entidades;
+package com.example.microservicioadministracion.modelos.entidades;
 
 
 import jakarta.persistence.*;
