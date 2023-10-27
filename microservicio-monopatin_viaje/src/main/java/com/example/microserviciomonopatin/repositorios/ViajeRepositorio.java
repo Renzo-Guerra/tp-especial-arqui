@@ -14,7 +14,7 @@ public interface ViajeRepositorio extends CrudRepository<Viaje, Long> {
             SELECT v 
             FROM Viaje v 
             WHERE EXTRACT(YEAR FROM v.fin) = :anio
-            GROUP BY v.id
+            GROUP BY v.id_monopatin
             HAVING count(v.fin) > :cantidad
             """)
     List<Viaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio);
