@@ -71,7 +71,19 @@ public class ViajeServicio {
 
 
 
-        return viajeRepositorio.save(new Viaje());
+        // Traemos el valor de la tarifa
+        HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
+        ResponseEntity<Optional<Tarifa>> response3 = restTemplate.exchange(
+                "http://localhost:8001/administrador/tarifas?ultima=asd",
+                HttpMethod.GET,
+                reqEntity3,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Tarifa tarifa = response3.getBody().get();
+
+        return viajeRepositorio.save(new Viaje(viaje.getId_cuenta(), viaje.getId_usuario(), viaje.getId_monopatin(), tarifa.getTarifa(), tarifa.getPorc_recargo()));
     }
 
     @Transactional

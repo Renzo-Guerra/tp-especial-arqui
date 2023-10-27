@@ -30,5 +30,15 @@ public class Viaje implements Serializable {
 
     public Viaje() { }
 
-
+    public Viaje(Long id_cuenta, Long id_usuario, Long id_monopatin, Double tarifa, Double porc_recargo) {
+        this.id_cuenta = id_cuenta;
+        this.id_usuario = id_usuario;
+        this.id_monopatin = id_monopatin;
+        this.inicio = LocalDateTime.now();
+        this.fin = null;
+        this.km_recorridos = 0.0;
+        this.tarifa = tarifa;
+        this.porc_recargo = porc_recargo;
+        this.segundos_estacionado = new Long(0L);
+    }
 }
