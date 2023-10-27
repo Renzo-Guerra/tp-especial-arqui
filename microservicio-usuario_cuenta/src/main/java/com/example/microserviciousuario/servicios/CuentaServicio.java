@@ -1,5 +1,6 @@
 package com.example.microserviciousuario.servicios;
 
+import com.example.microserviciousuario.modelos.dto.TransferenciaCuentaDTO;
 import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import com.example.microserviciousuario.repositorios.CuentaRepositorio;
 import jakarta.transaction.Transactional;
@@ -29,8 +30,8 @@ public class CuentaServicio {
     }
 
     @Transactional
-    public Cuenta crearCuenta(Cuenta cuenta) {
-        return cuentaRepositorio.save(cuenta);
+    public Cuenta crearCuenta(Long id_cuenta_mercado_pago) {
+        return cuentaRepositorio.save(new Cuenta(id_cuenta_mercado_pago));
     }
 
     @Transactional
@@ -59,5 +60,42 @@ public class CuentaServicio {
         } catch (Exception e){
             throw new Exception("No se ha editado la cuenta.");
         }
+    }
+
+    @Transactional
+    public TransferenciaCuentaDTO cargarSaldo(Long id_cuenta, Double monto) throws Exception {
+        if(monto.isNaN()){ throw new Exception("El monto ingresado no es un numero!") ;}
+        if(monto <= 0){ throw new Exception("El monto ingresado debe ser mayor que 0!") ;}
+
+        Optional<Cuenta> posible_cuenta = this.traerPorId(id_cuenta);
+
+        if(posible_cuenta.isEmpty()){ throw new Exception("No existe cuenta con el id '" + id_cuenta + "'!"); }
+
+        Cuenta cuenta = posible_cuenta.get();
+        Double montoAnterior = cuenta.getSaldo();
+
+        cuenta.setSaldo(cuenta.getSaldo() + monto);
+        Cuenta cuentaCambiada = this.cuentaRepositorio.save(cuenta);
+
+        return new TransferenciaCuentaDTO(montoAnterior, cuentaCambiada.getSaldo(), monto);
+    }
+
+
+    @Transactional
+    public TransferenciaCuentaDTO restarSaldo(Long id_cuenta, Double monto_quitar) throws Exception {
+        if(monto_quitar.isNaN()){ throw new Exception("El monto a restar no es un numero!") ;}
+        if(monto_quitar <= 0){ throw new Exception("El monto a restar debe ser mayor que 0!") ;}
+
+        Optional<Cuenta> posible_cuenta = this.traerPorId(id_cuenta);
+
+        if(posible_cuenta.isEmpty()){ throw new Exception("No existe cuenta con el id '" + id_cuenta + "'!"); }
+
+        Cuenta cuenta = posible_cuenta.get();
+        Double montoAnterior = cuenta.getSaldo();
+
+        cuenta.setSaldo(cuenta.getSaldo() - monto_quitar);
+        Cuenta cuentaCambiada = this.cuentaRepositorio.save(cuenta);
+
+        return new TransferenciaCuentaDTO(montoAnterior, cuentaCambiada.getSaldo(), monto_quitar);
     }
 }

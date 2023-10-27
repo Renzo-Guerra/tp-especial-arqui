@@ -34,19 +34,19 @@ public class CuentaControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaServicio.traerPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo recuperar el dato.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
     /**
      * Crea a una cuenta
      */
-    @PostMapping("")
-    public ResponseEntity<?> crearCuenta(@RequestBody Cuenta cuenta){
+    @PostMapping("/{id_mercado_pago}")
+    public ResponseEntity<?> crearCuenta(@PathVariable Long id_mercado_pago){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(cuentaServicio.crearCuenta(cuenta));
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaServicio.crearCuenta(id_mercado_pago));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo crear la cuenta.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -70,7 +70,25 @@ public class CuentaControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(cuentaServicio.editarCuenta(id, cuenta));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo recuperar el dato.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id_cuenta}/cargarSaldo/{monto}")
+    public ResponseEntity<?> cargarSaldo(@PathVariable Long id_cuenta, @PathVariable Double monto){
+        try{
+            return ResponseEntity.status(200).body(cuentaServicio.cargarSaldo(id_cuenta, monto));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id_cuenta}/restarSaldo/{monto}")
+    public ResponseEntity<?> restarSaldo(@PathVariable Long id_cuenta, @PathVariable Double monto){
+        try{
+            return ResponseEntity.status(200).body(cuentaServicio.restarSaldo(id_cuenta, monto));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 }
