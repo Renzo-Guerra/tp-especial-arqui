@@ -2,6 +2,8 @@ package com.example.microservicioadministracion.controladores;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
 import com.example.microservicioadministracion.modelos.entidades.Parada;
+import com.example.microservicioadministracion.modelos.entidades.Tarifa;
+import com.example.microservicioadministracion.modelos.entidades.TarifaCrearTarifaDTO;
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -80,6 +82,31 @@ public class AdministracionControlador {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
+
+    /**
+     * Devuelve todas las tarifas
+     */
+    @GetMapping("/tarifas")
+    public ResponseEntity<?> traerTodasTarifas(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasTarifas());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    /**
+     * Devuelve todas las tarifas
+     */
+    @PostMapping("/tarifas")
+    public ResponseEntity<?> crearTarifa(@RequestBody TarifaCrearTarifaDTO tarifa){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.crearTarifa(tarifa));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
 
 
     /**

@@ -1,19 +1,27 @@
 package com.example.microservicioadministracion.servicios;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
-import com.example.microservicioadministracion.modelos.entidades.MonopatinCambiarEstadoDTO;
 import com.example.microservicioadministracion.modelos.entidades.Parada;
+import com.example.microservicioadministracion.modelos.entidades.Tarifa;
+import com.example.microservicioadministracion.modelos.entidades.TarifaCrearTarifaDTO;
+import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.print.attribute.standard.Media;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Data
 public class AdministracionServicio {
+
+    private final TarifaRespositorio tarifaRespositorio;
+
     @Autowired
     private RestTemplate monopatinClienteRest;
     @Autowired
@@ -138,5 +146,30 @@ public class AdministracionServicio {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta.getBody();
+    }
+
+
+    public Iterable<Tarifa> traerTodasTarifas() throws Exception {
+        return tarifaRespositorio.findAll();
+    }
+
+    /**
+     * Creamos una tarifa. Se comprueba si la ultima tarifa creada no tiene fecha de caducacion (== null), si es asi, se setea la fecha de caducacion y se crea la nueva tarifa.
+     */
+    public Tarifa crearTarifa(TarifaCrearTarifaDTO tarifa) throws Exception {
+        Optional<Tarifa> ultimaTarifa = this.traerUltimaTarifaCreada();
+        if(ultimaTarifa.isPresent()) {
+            if(ultimaTarifa.get().getFecha_caducacion() == null) {
+                ultimaTarifa.get().setFecha_caducacion(LocalDateTime.now());
+                tarifaRespositorio.save(ultimaTarifa.get());
+            }
+        }
+        Tarifa t = new Tarifa(tarifa.getTarifa(), tarifa.getPorc_recargo());
+        return tarifaRespositorio.save(t);
+    }
+
+    public Optional<Tarifa> traerUltimaTarifaCreada() throws Exception {
+        Optional<Tarifa> t = tarifaRespositorio.buscarUltimaTarifa();
+        return t;
     }
 }
