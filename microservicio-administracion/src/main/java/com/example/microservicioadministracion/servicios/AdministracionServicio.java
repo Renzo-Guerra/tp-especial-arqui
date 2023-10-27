@@ -187,15 +187,13 @@ public class AdministracionServicio {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Cuenta cuenta_editar = respuesta.getBody();
-        System.out.println("Aca está 1");
+
         // Si el estado de la cuenta es el mismo por el cual se quiere cambiar, directamente corta aca
         if(cuenta_editar.getIsHabilitada().equals(Boolean.getBoolean(habilitada))){
             return cuenta_editar;
         }
         // En caso de que fuese distinto, hay que setear el nuevo valor y guardar el cambio en el microservicio
         cuenta_editar.setIsHabilitada(Boolean.getBoolean(habilitada));
-
-        System.out.println("Aca está 2");
 
         HttpEntity<Cuenta> reqEntity2 = new HttpEntity<>(cuenta_editar, headers);
         ResponseEntity<Cuenta> respuesta2 = restTemplate.exchange(
@@ -205,9 +203,6 @@ public class AdministracionServicio {
                 new ParameterizedTypeReference<>() {
                 });
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-
-        System.out.println("Aca está 3");
 
         return respuesta2.getBody();
     }
