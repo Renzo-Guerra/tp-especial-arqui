@@ -38,9 +38,8 @@ public class ViajeControlador {
         }
     }
 
-    /**
-     * Crea a un viaje
-     */
+
+    // FIX: Falta pasarle el id_cuenta, id_cliente e id_monopatin
     @PostMapping("")
     public ResponseEntity<?> crearViaje(@RequestBody Viaje viaje){
         try{
@@ -62,9 +61,7 @@ public class ViajeControlador {
         }
     }
 
-    /**
-     * Edita los datos de un viaje
-     */
+    // FIX: Falta validar que existan id_cuenta, id_cliente e id_monopatin
     @PutMapping("/{id}")
     public ResponseEntity<?> editarViaje(@PathVariable Long id, @RequestBody Viaje viaje){
         try{
