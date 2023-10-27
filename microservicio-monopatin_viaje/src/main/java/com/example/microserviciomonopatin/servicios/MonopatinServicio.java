@@ -47,12 +47,14 @@ public class MonopatinServicio {
 
     @Transactional
     public Monopatin editar(Long idMonopatin, Monopatin nuevaInfo) throws Exception {
+        System.out.println("La nueva es: " + nuevaInfo);
         this.validarEstado(nuevaInfo.getEstado());
         Monopatin monopatin_editar = this.traerPorId(idMonopatin);
 
         monopatin_editar.setGps(nuevaInfo.getGps());
         monopatin_editar.setLatitud(nuevaInfo.getLatitud());
         monopatin_editar.setLongitud(nuevaInfo.getLongitud());
+        monopatin_editar.setEstado(nuevaInfo.getEstado());
 
         return monopatinRespositorio.save(monopatin_editar);
     }

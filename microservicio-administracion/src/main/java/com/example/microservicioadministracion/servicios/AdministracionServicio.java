@@ -53,7 +53,7 @@ public class AdministracionServicio {
                 new ParameterizedTypeReference<>() {});
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        return respuesta.getBody();
+        return respuesta2.getBody();
     }
 
     public Monopatin agregarMonopatin(Monopatin monopatin) {
