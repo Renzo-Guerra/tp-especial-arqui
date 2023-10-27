@@ -2,11 +2,16 @@ package com.example.microservicioadministracion.modelos.entidades;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @Table(name = "tarifa")
 public class Tarifa {
     @Id
@@ -16,4 +21,14 @@ public class Tarifa {
     private Double tarifa;
     private Double porc_recargo;
     private LocalDateTime fecha_caducacion;
+
+    public Tarifa() {
+    }
+
+    public Tarifa(Double tarifa, Double porc_recargo) {
+        this.fecha_creacion = LocalDateTime.now();
+        this.tarifa = tarifa;
+        this.porc_recargo = porc_recargo;
+        this.fecha_caducacion = null;
+    }
 }
