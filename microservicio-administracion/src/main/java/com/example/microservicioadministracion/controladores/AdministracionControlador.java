@@ -2,9 +2,9 @@ package com.example.microservicioadministracion.controladores;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
 import com.example.microservicioadministracion.modelos.entidades.Parada;
-import com.example.microservicioadministracion.modelos.entidades.Tarifa;
 import com.example.microservicioadministracion.modelos.entidades.TarifaCrearTarifaDTO;
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
+import jakarta.websocket.server.PathParam;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -107,6 +107,14 @@ public class AdministracionControlador {
         }
     }
 
+    @PutMapping("/cuentas/{id_cuenta}")
+    public ResponseEntity<?> cambiarEstadoCuenta(@PathVariable Long id_cuenta, @RequestParam(name = "habilitada") String habilitada){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarEstadoCuenta(id_cuenta, habilitada));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
 
 
     /**

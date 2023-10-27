@@ -1,9 +1,6 @@
 package com.example.microservicioadministracion.servicios;
 
-import com.example.microservicioadministracion.modelos.entidades.Monopatin;
-import com.example.microservicioadministracion.modelos.entidades.Parada;
-import com.example.microservicioadministracion.modelos.entidades.Tarifa;
-import com.example.microservicioadministracion.modelos.entidades.TarifaCrearTarifaDTO;
+import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,5 +168,47 @@ public class AdministracionServicio {
     public Optional<Tarifa> traerUltimaTarifaCreada() throws Exception {
         Optional<Tarifa> t = tarifaRespositorio.buscarUltimaTarifa();
         return t;
+    }
+
+    public Cuenta cambiarEstadoCuenta(Long id_cuenta, String habilitada) throws Exception {
+        habilitada = habilitada.toLowerCase();
+        if(!habilitada.equals("true") && !habilitada.equals("false")){
+            throw new Exception("Estado de cuenta invalido. Parametros validos: ('true' | 'false') !");
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<Cuenta> respuesta = restTemplate.exchange(
+                "http://localhost:8004/cuentas/" + id_cuenta,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Cuenta cuenta_editar = respuesta.getBody();
+        System.out.println("Aca está 1");
+        // Si el estado de la cuenta es el mismo por el cual se quiere cambiar, directamente corta aca
+        if(cuenta_editar.getIsHabilitada().equals(Boolean.getBoolean(habilitada))){
+            return cuenta_editar;
+        }
+        // En caso de que fuese distinto, hay que setear el nuevo valor y guardar el cambio en el microservicio
+        cuenta_editar.setIsHabilitada(Boolean.getBoolean(habilitada));
+
+        System.out.println("Aca está 2");
+
+        HttpEntity<Cuenta> reqEntity2 = new HttpEntity<>(cuenta_editar, headers);
+        ResponseEntity<Cuenta> respuesta2 = restTemplate.exchange(
+                "http://localhost:8004/cuentas/" + id_cuenta,
+                HttpMethod.PUT,
+                reqEntity2,
+                new ParameterizedTypeReference<>() {
+                });
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        System.out.println("Aca está 3");
+
+        return respuesta2.getBody();
     }
 }

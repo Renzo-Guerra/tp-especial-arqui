@@ -1,4 +1,4 @@
-package com.example.microserviciousuario.modelos.entidades;
+package com.example.microservicioadministracion.modelos.entidades;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,16 +24,15 @@ public class Cuenta implements Serializable {
     private Boolean isHabilitada;
     @Column(name = "fecha_alta")
     private LocalDateTime fecha_alta;
-
     @ManyToMany
     private List<Usuario> usuarios;
 
     public Cuenta() { }
 
-    public Cuenta (Long id_mercado_pago){
+    public Cuenta(Long id_mercado_pago){
         this.id_mercado_pago = id_mercado_pago;
         this.saldo = 0.0;
-        this.isHabilitada = true;
+        this.isHabilitada = Boolean.TRUE;
         this.fecha_alta = LocalDateTime.now();
         this.usuarios = new ArrayList<>();
     }
