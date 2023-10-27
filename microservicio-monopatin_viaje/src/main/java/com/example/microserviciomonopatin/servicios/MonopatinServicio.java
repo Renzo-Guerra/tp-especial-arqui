@@ -20,6 +20,8 @@ public class MonopatinServicio {
         return monopatinRespositorio.findAll();
     }
 
+    // FIX: Falta endpoint que traiga los monopatines que tienen el estado "disponible"
+
     @Transactional
     public Monopatin traerPorId(Long id_monopatin) throws Exception {
         Optional<Monopatin> monopatin = monopatinRespositorio.findById(id_monopatin);
@@ -31,12 +33,14 @@ public class MonopatinServicio {
         return monopatin.get();
     }
 
+    // FIX: Falta validar que el idgps no esté asignado a otro monopatin
     @Transactional
     public Monopatin crear(Monopatin monopatin) throws Exception {
         this.validarEstado(monopatin.getEstado());
         return monopatinRespositorio.save(monopatin);
     }
 
+    // FIX: En realidad habria que cambiar el estado del monopatin a "deshabilitado"
     @Transactional
     public Monopatin eliminar(Long id_monopatin) throws Exception {
         Monopatin monopatin_eliminar = this.traerPorId(id_monopatin);
@@ -45,6 +49,8 @@ public class MonopatinServicio {
         return monopatin_eliminar;
     }
 
+
+    // FIX: Falta validar que en caso de que se cambie el idgps, este no esté asignado a otro monopatin
     @Transactional
     public Monopatin editar(Long idMonopatin, Monopatin nuevaInfo) throws Exception {
         System.out.println("La nueva es: " + nuevaInfo);
