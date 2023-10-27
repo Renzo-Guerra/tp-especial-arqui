@@ -1,6 +1,7 @@
 package com.example.microservicioadministracion.controladores;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
+import com.example.microservicioadministracion.modelos.entidades.Parada;
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,32 @@ public class AdministracionControlador {
         }
     }
 
+    @PostMapping("/paradas")
+    public ResponseEntity<?> agregarParada(@RequestBody Parada parada){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarParada(parada));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/paradas/{id}/cambiarDisponibilidad")
+    public ResponseEntity<?> cambiarDisponibilidad(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarDisponibilidad(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/paradas")
+    public ResponseEntity<?> traerTodasParadas(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasParadas());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
 
 
     /**

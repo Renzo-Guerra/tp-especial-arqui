@@ -2,6 +2,7 @@ package com.example.microservicioadministracion.servicios;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
 import com.example.microservicioadministracion.modelos.entidades.MonopatinCambiarEstadoDTO;
+import com.example.microservicioadministracion.modelos.entidades.Parada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -15,6 +16,8 @@ import java.util.List;
 public class AdministracionServicio {
     @Autowired
     private RestTemplate monopatinClienteRest;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<Monopatin> traerTodosMonopatin() throws Exception {
         HttpHeaders headers = new HttpHeaders();
@@ -79,6 +82,59 @@ public class AdministracionServicio {
                 reqEntity,
                 new ParameterizedTypeReference<>() {}
         );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return respuesta.getBody();
+    }
+
+    public Parada agregarParada(Parada parada) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Parada> reqEntity = new HttpEntity<>(parada, headers);
+        ResponseEntity<Parada> respuesta = restTemplate.exchange(
+                "http://localhost:8003/paradas",
+                HttpMethod.POST,
+                reqEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return respuesta.getBody();
+    }
+
+    public Parada cambiarDisponibilidad(Long id) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<Parada> respuesta = restTemplate.exchange(
+                "http://localhost:8003/paradas/" + id,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        Parada paradaEditarEstado = respuesta.getBody();
+        paradaEditarEstado.setIsHabilitada(!paradaEditarEstado.getIsHabilitada());
+
+        HttpEntity<Parada> reqEntity2 = new HttpEntity<>(paradaEditarEstado, headers);
+        ResponseEntity<Parada> respuesta2 = restTemplate.exchange(
+                "http://localhost:8003/paradas/" + id,
+                HttpMethod.PUT,
+                reqEntity2,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return respuesta2.getBody();
+
+    }
+
+    public List<Parada> traerTodasParadas() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<List<Parada>> respuesta = restTemplate.exchange(
+            "http://localhost:8003/paradas",
+            HttpMethod.GET,
+            reqEntity,
+            new ParameterizedTypeReference<List<Parada>>() {
+            });
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta.getBody();

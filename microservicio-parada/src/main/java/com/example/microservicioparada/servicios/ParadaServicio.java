@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -49,10 +50,13 @@ public class ParadaServicio {
     public Parada editar(Long id_parada, Parada nuevaInfo) throws Exception {
         Parada parada_editar = this.traerPorId(id_parada);
 
-        this.existeParadaConCoordenadas(nuevaInfo.getLatitud(), nuevaInfo.getLongitud());
+        if(!Objects.equals(nuevaInfo.getLatitud(), parada_editar.getLatitud()) || !Objects.equals(nuevaInfo.getLongitud(), parada_editar.getLongitud())) {
+            this.existeParadaConCoordenadas(nuevaInfo.getLatitud(), nuevaInfo.getLongitud());
+        }
 
         parada_editar.setLatitud(nuevaInfo.getLatitud());
         parada_editar.setLongitud(nuevaInfo.getLongitud());
+        parada_editar.setIsHabilitada(nuevaInfo.getIsHabilitada());
 
         return paradaRespositorio.save(parada_editar);
     }
