@@ -72,4 +72,13 @@ public class ViajeControlador {
         }
     }
 
+    @GetMapping("/cantidadViajesMayorA/{cantidad}/año/{anio}")
+    public ResponseEntity<?> cantidadViajesMayorAXAño(@PathVariable Integer cantidad, @PathVariable Integer anio){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.cantidadViajesMayorAXAño(cantidad, anio));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
 }

@@ -2,6 +2,8 @@ package com.example.microservicioadministracion.servicios;
 
 import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
+import com.example.microserviciomonopatin.modelos.entidades.Viaje;
+import com.example.microserviciomonopatin.repositorios.ViajeRepositorio;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -205,5 +207,19 @@ public class AdministracionServicio {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta2.getBody();
+    }
+
+    public List<Viaje> reporteCantidadViajesPorAnio(Integer cantidad, Integer anio) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<List<Viaje>> respuesta = restTemplate.exchange(
+                "http://localhost:8002/viajes/cantidadViajesMayorA/" + cantidad + "/año/ "+ anio,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<List<Viaje>>() {
+                });
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return respuesta.getBody();
     }
 }

@@ -6,6 +6,7 @@ import com.example.microservicioadministracion.modelos.entidades.TarifaCrearTari
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
 import jakarta.websocket.server.PathParam;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,9 +88,13 @@ public class AdministracionControlador {
      * Devuelve todas las tarifas
      */
     @GetMapping("/tarifas")
-    public ResponseEntity<?> traerTodasTarifas(){
+    public ResponseEntity<?> traerTodasTarifas(@RequestParam(name = "ultima", required = false) String ultimaTarifa){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasTarifas());
+            if(ultimaTarifa != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerUltimaTarifaCreada());
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasTarifas());
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -116,6 +121,24 @@ public class AdministracionControlador {
         }
     }
 
+
+    @GetMapping("/reportes/cantidadViajesMayorA/{cantidad}/año/{anio}")
+    public ResponseEntity<?> reporteCantidadViajesPorAnio(@PathVariable Integer cantidad, @PathVariable Integer anio){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteCantidadViajesPorAnio(cantidad, anio));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/reportes/facturacionViajesDesde/{mes1}/hasta/{mes2}/año/{anio}")
+    public ResponseEntity<?> reporteFacturacionViajesRangoMesesPorAnio(@PathVariable Integer cantidad, @PathVariable Integer anio){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteCantidadViajesPorAnio(cantidad, anio));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
 
     /**
      * Devuelve todos los roles

@@ -103,4 +103,9 @@ public class ViajeServicio {
         }
     }
 
+    @Transactional
+    public List<Viaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio) throws Exception {
+        return viajeRepositorio.cantidadViajesMayorAXAño(cantidad, anio);
+    }
+
 }
