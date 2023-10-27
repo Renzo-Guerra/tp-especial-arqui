@@ -1,8 +1,7 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
-import com.example.microserviciomonopatin.modelos.entidades.MonopatinCambiarEstadoDTO;
-import com.example.microserviciomonopatin.repositorios.MonopatinRespositorio;
+import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -13,18 +12,18 @@ import java.util.Optional;
 @Service
 @Data
 public class MonopatinServicio {
-    private final MonopatinRespositorio monopatinRespositorio;
+    private final MonopatinRepositorio monopatinRepositorio;
 
     @Transactional
     public Iterable<Monopatin> traerTodos() {
-        return monopatinRespositorio.findAll();
+        return monopatinRepositorio.findAll();
     }
 
     // FIX: Falta endpoint que traiga los monopatines que tienen el estado "disponible"
 
     @Transactional
     public Monopatin traerPorId(Long id_monopatin) throws Exception {
-        Optional<Monopatin> monopatin = monopatinRespositorio.findById(id_monopatin);
+        Optional<Monopatin> monopatin = monopatinRepositorio.findById(id_monopatin);
 
         if(monopatin.isEmpty()){
             throw new Exception("No existe un monopatin con id '" + id_monopatin + "'!");
@@ -37,7 +36,7 @@ public class MonopatinServicio {
     @Transactional
     public Monopatin crear(Monopatin monopatin) throws Exception {
         this.validarEstado(monopatin.getEstado());
-        return monopatinRespositorio.save(monopatin);
+        return monopatinRepositorio.save(monopatin);
     }
 
     // FIX: En realidad habria que cambiar el estado del monopatin a "deshabilitado"
@@ -45,7 +44,7 @@ public class MonopatinServicio {
     public Monopatin eliminar(Long id_monopatin) throws Exception {
         Monopatin monopatin_eliminar = this.traerPorId(id_monopatin);
 
-        monopatinRespositorio.deleteById(id_monopatin);
+        monopatinRepositorio.deleteById(id_monopatin);
         return monopatin_eliminar;
     }
 
@@ -62,7 +61,7 @@ public class MonopatinServicio {
         monopatin_editar.setLongitud(nuevaInfo.getLongitud());
         monopatin_editar.setEstado(nuevaInfo.getEstado());
 
-        return monopatinRespositorio.save(monopatin_editar);
+        return monopatinRepositorio.save(monopatin_editar);
     }
 
 

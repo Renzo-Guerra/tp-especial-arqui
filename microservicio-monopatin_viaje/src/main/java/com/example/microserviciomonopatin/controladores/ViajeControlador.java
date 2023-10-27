@@ -1,5 +1,6 @@
 package com.example.microserviciomonopatin.controladores;
 
+import com.example.microserviciomonopatin.modelos.entidades.CrearViajeDTO;
 import com.example.microserviciomonopatin.modelos.entidades.Viaje;
 import com.example.microserviciomonopatin.servicios.ViajeServicio;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class ViajeControlador {
 
     // FIX: Falta pasarle el id_cuenta, id_cliente e id_monopatin
     @PostMapping("")
-    public ResponseEntity<?> crearViaje(@RequestBody Viaje viaje){
+    public ResponseEntity<?> crearViaje(@RequestBody CrearViajeDTO viaje){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.crearViaje(viaje));
         } catch (Exception e) {
