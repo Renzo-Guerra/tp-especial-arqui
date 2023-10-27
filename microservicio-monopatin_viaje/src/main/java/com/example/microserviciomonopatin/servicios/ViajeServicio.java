@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,6 +56,11 @@ public class ViajeServicio {
         } catch (Exception e){
             throw new Exception("No se ha editar el viaje.");
         }
+    }
+
+    @Transactional
+    public List<Viaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio) throws Exception {
+        return viajeRepositorio.cantidadViajesMayorAXAño(cantidad, anio);
     }
 
 }
