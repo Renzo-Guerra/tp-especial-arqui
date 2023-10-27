@@ -1,7 +1,7 @@
 package com.example.microserviciomonopatin.utils;
 
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
-import com.example.microserviciomonopatin.repositorios.MonopatinRespositorio;
+import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -16,7 +16,7 @@ import java.io.IOException;
 @Component
 public class CargarDatos {
     @Autowired
-    private MonopatinRespositorio monopatinRepositorio;
+    private MonopatinRepositorio monopatinRepositorio;
 
     public void cargarDatosDesdeCSV() throws IOException {
         File archivoCSV = ResourceUtils.getFile("microservicio-monopatin_viaje/src/main/java/com/example/microserviciomonopatin/csv/monopatines.csv");

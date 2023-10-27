@@ -23,7 +23,7 @@ public class UsuarioControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.traerTodos());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudieron recuperar los datos.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class UsuarioControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.traerPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo recuperar el dato.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class UsuarioControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.crearUsuario(usuario));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo crear el usuario.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class UsuarioControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.editarUsuario(id, usuario));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo recuperar el dato.");
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 

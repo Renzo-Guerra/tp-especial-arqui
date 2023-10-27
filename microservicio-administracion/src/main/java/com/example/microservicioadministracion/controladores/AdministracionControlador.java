@@ -88,13 +88,18 @@ public class AdministracionControlador {
      * Devuelve todas las tarifas
      */
     @GetMapping("/tarifas")
-    public ResponseEntity<?> traerTodasTarifas(@RequestParam(name = "ultima", required = false) String ultimaTarifa){
+    public ResponseEntity<?> traerTodasTarifas(){
         try{
-            if(ultimaTarifa != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerUltimaTarifaCreada());
-            } else {
-                return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasTarifas());
-            }
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasTarifas());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/tarifas/ultima")
+    public ResponseEntity<?> traerUltimaTarifa(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerUltimaTarifaCreada());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
