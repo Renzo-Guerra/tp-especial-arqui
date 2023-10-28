@@ -76,4 +76,22 @@ public class UsuarioControlador {
     }
 
 
+    /*@PostMapping("/viajes/usuario/{id_usuario}/cuenta/{id_cuenta}/monopatin/{id_monopatin}")
+    public ResponseEntity<?> finalizarViaje(@PathVariable Integer id_usuario, @PathVariable Integer id_cuenta, @PathVariable Integer id_monopatin) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.finalizarViaje(id_usuario, id_cuenta, id_monopatin));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }*/
+    @PostMapping("/viajes/{id_viaje}")
+    public ResponseEntity<?> finalizarViaje(@PathVariable Integer id_viaje) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.finalizarViaje(id_viaje));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+
 }

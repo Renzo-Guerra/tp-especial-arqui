@@ -2,19 +2,28 @@ package com.example.microserviciousuario.servicios;
 
 import com.example.microserviciousuario.modelos.dto.UsuarioCreacion;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
+import com.example.microserviciousuario.modelos.entidades.Viaje;
 import com.example.microserviciousuario.repositorios.UsuarioRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 @Service
 @AllArgsConstructor
 public class UsuarioServicio {
     private final UsuarioRepositorio usuarioRepositorio;
+    private final RestTemplate restTemplate;
 
     @Transactional
     public Iterable<Usuario> traerTodos() {
@@ -66,5 +75,55 @@ public class UsuarioServicio {
         }
     }
 
+    @Transactional
+    public Viaje finalizarViaje(Integer id_viaje) throws Exception {
+        // Traemos el viaje:
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<Viaje> response = restTemplate.exchange(
+                "http://localhost:8002/viajes/" + id_viaje,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
+        Viaje viaje = response.getBody();
+
+        if(viaje.getFin() == null) {
+            viaje.setFin(LocalDateTime.now());
+            Random random = new Random();
+            Double randomDouble = random.nextDouble() * 100; // seteamos de forma aleatoria los kms recorridos
+            viaje.setKm_recorridos(randomDouble);
+            Long randomLong = random.nextLong() * 100; // seteamos de forma aleatoria el tiempo estacionado
+            viaje.setSegundos_estacionado(randomLong);
+
+            Double importe = 0.0;
+            Double tarifa = viaje.getTarifa();
+            Double porc_rec = viaje.getPorc_recargo();
+            Long seg_estacionado = viaje.getSegundos_estacionado();
+            Double quinceMinSegundos = new Double(15 * 60);
+            Long tiempo_viaje = Duration.between(viaje.getFin(), viaje.getInicio()).toMinutes();
+            importe = (tiempo_viaje - ((seg_estacionado * 60) - quinceMinSegundos) * tarifa)
+            if(seg_estacionado > quinceMinSegundos) {
+                importe += ((seg_estacionado - quinceMinSegundos) * tarifa * porc_rec);
+            }
+            viaje.setCosto_viaje(importe);
+        } else {
+            throw new Exception("El viaje que intenta finalizar, ya fue finalizado.");
+        }
+
+        // Traemos el valor de la tarifa
+        HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
+        ResponseEntity<Optional<Tarifa>> response3 = restTemplate.exchange(
+                "http://localhost:8001/administracion/tarifas/ultima",
+                HttpMethod.GET,
+                reqEntity3,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // Habilitar monopatin como dispo
+        // Descontar dinero de cuenta:
+    }
 }
