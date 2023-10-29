@@ -1,5 +1,6 @@
 package com.example.microserviciomonopatin.servicios;
 
+import com.example.microserviciomonopatin.modelos.DTOS.CrearViajeDTO;
 import com.example.microserviciomonopatin.modelos.entidades.*;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
 import com.example.microserviciomonopatin.repositorios.ViajeRepositorio;

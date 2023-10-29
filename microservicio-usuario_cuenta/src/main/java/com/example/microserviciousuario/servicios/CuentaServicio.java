@@ -1,6 +1,6 @@
 package com.example.microserviciousuario.servicios;
 
-import com.example.microserviciousuario.modelos.dto.TransferenciaCuentaDTO;
+import com.example.microserviciousuario.modelos.DTOS.TransferenciaCuentaDTO;
 import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import com.example.microserviciousuario.repositorios.CuentaRepositorio;
 import jakarta.transaction.Transactional;

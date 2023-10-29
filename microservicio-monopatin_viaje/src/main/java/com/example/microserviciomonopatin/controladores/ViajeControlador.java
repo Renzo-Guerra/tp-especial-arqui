@@ -1,6 +1,6 @@
 package com.example.microserviciomonopatin.controladores;
 
-import com.example.microserviciomonopatin.modelos.entidades.CrearViajeDTO;
+import com.example.microserviciomonopatin.modelos.DTOS.CrearViajeDTO;
 import com.example.microserviciomonopatin.modelos.entidades.Viaje;
 import com.example.microserviciomonopatin.servicios.ViajeServicio;
 import lombok.Data;

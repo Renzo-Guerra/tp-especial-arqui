@@ -1,4 +1,4 @@
-package com.example.microservicioadministracion.modelos.entidades;
+package com.example.microservicioadministracion.modelos.DTOS;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.example.microserviciomonopatin.modelos.entidades;
+package com.example.microserviciomonopatin.modelos.DTOS;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

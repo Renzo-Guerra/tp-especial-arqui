@@ -1,9 +1,10 @@
 package com.example.microservicioadministracion.servicios;
 
+import com.example.microservicioadministracion.modelos.DTOS.MonopatinKilometrajeDTO;
+import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO;
 import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
 import com.example.microserviciomonopatin.modelos.entidades.Viaje;
-import com.example.microserviciomonopatin.repositorios.ViajeRepositorio;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -216,10 +217,23 @@ public class AdministracionServicio {
                 "http://localhost:8002/viajes/cantidadViajesMayorA/" + cantidad + "/año/ "+ anio,
                 HttpMethod.GET,
                 reqEntity,
-                new ParameterizedTypeReference<List<Viaje>>() {
-                });
+                new ParameterizedTypeReference<List<Viaje>>() {});
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta.getBody();
+    }
+
+    public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<List<MonopatinKilometrajeDTO>> response = restTemplate.exchange(
+                "http://localhost:8002/monopatines/kilometros?orden=" + orden,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return response.getBody();
     }
 }

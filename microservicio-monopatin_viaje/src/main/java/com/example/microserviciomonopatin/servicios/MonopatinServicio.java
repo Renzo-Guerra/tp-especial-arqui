@@ -1,12 +1,14 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
+import com.example.microserviciomonopatin.modelos.DTOS.MonopatinKilometrajeDTO;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,5 +74,12 @@ public class MonopatinServicio {
         if(!Arrays.asList(estados_monopatin_validos).contains(estado)){
             throw new Exception("El estado '" + estado + "' es invalido! Estados validos: " + Arrays.toString(estados_monopatin_validos));
         }
+    }
+
+    public List<MonopatinKilometrajeDTO> traerOrdenadosPorKilometros(String ord) {
+        if(ord.equals("ASC"))
+            return this.monopatinRepositorio.traerOrdenadosPorKilometrosASC();
+        else
+            return this.monopatinRepositorio.traerOrdenadosPorKilometrosDESC();
     }
 }

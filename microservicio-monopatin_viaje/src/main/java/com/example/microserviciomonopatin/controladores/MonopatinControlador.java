@@ -1,7 +1,6 @@
 package com.example.microserviciomonopatin.controladores;
 
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
-import com.example.microserviciomonopatin.modelos.entidades.MonopatinCambiarEstadoDTO;
 import com.example.microserviciomonopatin.servicios.MonopatinServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,16 @@ public class MonopatinControlador {
     public ResponseEntity<?> traerTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerTodos());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/kilometros")
+    public ResponseEntity<?> traerOrdenadosPorKilometros(@RequestParam(name = "orden", required = false, defaultValue = "DESC") String orden){
+        String ord = (orden.equals("ASC"))? "ASC" : "DESC";
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorKilometros(ord));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }

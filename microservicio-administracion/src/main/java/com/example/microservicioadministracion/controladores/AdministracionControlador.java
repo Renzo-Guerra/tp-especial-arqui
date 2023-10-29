@@ -2,11 +2,9 @@ package com.example.microservicioadministracion.controladores;
 
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
 import com.example.microservicioadministracion.modelos.entidades.Parada;
-import com.example.microservicioadministracion.modelos.entidades.TarifaCrearTarifaDTO;
+import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO;
 import com.example.microservicioadministracion.servicios.AdministracionServicio;
-import jakarta.websocket.server.PathParam;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -145,6 +143,15 @@ public class AdministracionControlador {
         }
     }
 
+    @GetMapping("/reportes/monopatines/kilometros")
+    public ResponseEntity<?> reporteMonopatinesOrderByKilometros(@RequestParam(name = "orden", required = false, defaultValue = "DESC") String orden){
+        String ord = (orden.equals("ASC"))? "ASC" : "DESC";
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(ord));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
     /**
      * Devuelve todos los roles
      */
