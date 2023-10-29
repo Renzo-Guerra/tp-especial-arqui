@@ -57,7 +57,7 @@ public class ViajeServicio {
         if(!cuenta.getIsHabilitada()){throw new Exception("La cuenta con el id '" + cuenta.getId() + "' está deshabilitada!!!"); }
 
         // Validamos que la cuenta tenga credito
-        if(cuenta.getSaldo() <= 0){ throw new Exception("La cuenta no cuenta con fondos!!!"); }
+        if(cuenta.getSaldo() <= 0){ throw new Exception("La cuenta no dispone de fondos suficientes!!!"); }
 
 
         // Validamos que el Usuario exista:
