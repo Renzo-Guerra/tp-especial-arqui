@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
     @Column(name = "fecha_alta")
     private LocalDateTime fecha;
 
-    @ManyToMany(mappedBy = "usuarios")
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     private List<Cuenta> cuentas;
 
     public Usuario() {

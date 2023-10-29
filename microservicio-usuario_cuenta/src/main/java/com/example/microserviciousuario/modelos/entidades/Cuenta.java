@@ -1,6 +1,7 @@
 package com.example.microserviciousuario.modelos.entidades;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,7 +26,7 @@ public class Cuenta implements Serializable {
     @Column(name = "fecha_alta")
     private LocalDateTime fecha_alta;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Usuario> usuarios;
 
     public Cuenta() {
