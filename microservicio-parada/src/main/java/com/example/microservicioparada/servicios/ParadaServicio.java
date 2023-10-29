@@ -33,7 +33,7 @@ public class ParadaServicio {
     @Transactional
     public Parada crear(Parada parada) throws Exception {
         // Validamos que la nueva parada no tenga las mismas coordenadas que alguna ya existente
-        this.existeParadaConCoordenadas(parada.getLatitud(), parada.getLongitud());
+        this.middlewareCoordenadaExiste(parada.getLatitud(), parada.getLongitud());
 
         return paradaRespositorio.save(parada);
     }
@@ -51,7 +51,7 @@ public class ParadaServicio {
         Parada parada_editar = this.traerPorId(id_parada);
 
         if(!Objects.equals(nuevaInfo.getLatitud(), parada_editar.getLatitud()) || !Objects.equals(nuevaInfo.getLongitud(), parada_editar.getLongitud())) {
-            this.existeParadaConCoordenadas(nuevaInfo.getLatitud(), nuevaInfo.getLongitud());
+            this.middlewareCoordenadaExiste(nuevaInfo.getLatitud(), nuevaInfo.getLongitud());
         }
 
         parada_editar.setLatitud(nuevaInfo.getLatitud());
@@ -62,12 +62,18 @@ public class ParadaServicio {
     }
 
 
-    // Verifica que no exista una parada con la misma latitud y longitud
-    private void existeParadaConCoordenadas(Double latitud, Double longitud) throws Exception {
+    // MIDDLEWARE Verifica que no exista una parada con la misma latitud y longitud
+    private void middlewareCoordenadaExiste(Double latitud, Double longitud) throws Exception {
         Optional<Parada> parada = this.paradaRespositorio.traerPorCoordenadas(latitud, longitud);
 
         if(parada.isPresent()){
             throw new Exception("Ya existe la parada '" + parada.get().getId_parada() + "' con esa latitud y longitud!");
         }
+    }
+
+    public Optional<Parada> buscarParadaPorCoordenadas(Double latitud, Double longitud) throws Exception {
+        if(latitud == null || longitud == null){ throw new Exception("Latitud o longitud son nulas!!!"); }
+
+        return this.paradaRespositorio.traerPorCoordenadas(latitud, longitud);
     }
 }
