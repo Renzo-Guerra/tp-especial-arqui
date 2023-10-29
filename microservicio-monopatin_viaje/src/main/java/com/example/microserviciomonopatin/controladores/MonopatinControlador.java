@@ -32,6 +32,15 @@ public class MonopatinControlador {
         }
     }
 
+    @GetMapping("/tiempos/conPausas")
+    public ResponseEntity<?> traerOrdenadosPorTiempoConPausas(@RequestParam(name = "orden", required = false) String orden){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorTiempoConPausas(orden));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> traerPorId(@PathVariable("id") Long id_monopatin){
         try{

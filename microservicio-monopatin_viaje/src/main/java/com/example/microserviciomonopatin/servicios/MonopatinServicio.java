@@ -1,5 +1,6 @@
 package com.example.microserviciomonopatin.servicios;
 
+import com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionamiento;
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
 import com.example.microserviciomonopatin.modelos.DTOS.MonopatinKilometrajeDTO;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
@@ -82,7 +83,6 @@ public class MonopatinServicio {
             return this.monopatinRepositorio.traerOrdenadosPorKilometrosDESC();
         }
 
-
         // Verificamos que el valor asociado a este haya sido uno valido
         orden = orden.toUpperCase();
         if(!orden.equals("ASC") && !orden.equals("DESC")){
@@ -95,5 +95,45 @@ public class MonopatinServicio {
 
         // En caso que el valor asociado sea DESC
         return this.monopatinRepositorio.traerOrdenadosPorKilometrosDESC();
+    }
+
+    public List<MonopatinTiempoFuncionamiento> traerOrdenadosPorTiempoConPausas(String orden) throws Exception {
+        // En caso de que no se haya pasado parametro
+        if(orden == null){
+            return this.monopatinRepositorio.traerOrdenadosPorTiempoConPausasDESC();
+        }
+
+        // Verificamos que el valor asociado a este haya sido uno valido
+        orden = orden.toUpperCase();
+        if(!orden.equals("ASC") && !orden.equals("DESC")){
+            throw new Exception("El parametró opcional 'orden' solo puede tomar el valor 'asc' o 'desc'!");
+        }
+
+        // En caso que el valor asociado sea ASC
+        if(orden.equals("ASC"))
+            return this.monopatinRepositorio.traerOrdenadosPorTiempoConPausasASC();
+
+        // En caso que el valor asociado sea DESC
+        return this.monopatinRepositorio.traerOrdenadosPorTiempoConPausasDESC();
+    }
+
+    public List<MonopatinTiempoFuncionamiento> traerOrdenadosPorTiempoSinPausas(String orden) throws Exception {
+        // En caso de que no se haya pasado parametro
+        if(orden == null){
+            return this.monopatinRepositorio.traerOrdenadosPorTiempoSinPausasDESC();
+        }
+
+        // Verificamos que el valor asociado a este haya sido uno valido
+        orden = orden.toUpperCase();
+        if(!orden.equals("ASC") && !orden.equals("DESC")){
+            throw new Exception("El parametró opcional 'orden' solo puede tomar el valor 'asc' o 'desc'!");
+        }
+
+        // En caso que el valor asociado sea ASC
+        if(orden.equals("ASC"))
+            return this.monopatinRepositorio.traerOrdenadosPorTiempoSinPausasASC();
+
+        // En caso que el valor asociado sea DESC
+        return this.monopatinRepositorio.traerOrdenadosPorTiempoSinPausasDESC();
     }
 }

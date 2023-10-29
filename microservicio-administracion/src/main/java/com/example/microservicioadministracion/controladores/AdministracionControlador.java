@@ -153,10 +153,19 @@ public class AdministracionControlador {
         }
     }
 
-    @GetMapping("/reportes/monopatines/tiempos")
-    public ResponseEntity<?> reporteMonopatinesOrderByTiempos(@RequestParam(name = "conPausas", required = false) String conPausas){
+    @GetMapping("/reportes/monopatines/tiempos/conPausas")
+    public ResponseEntity<?> reporteMonopatinesTiemposConPausas(@RequestParam(name = "orden", required = false) String orden){
           try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(conPausas));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesTiemposConPausas(orden));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/reportes/monopatines/tiempos/sinPausas")
+    public ResponseEntity<?> reporteMonopatinesTiemposSinPausas(@RequestParam(name = "orden", required = false) String orden){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesTiemposSinPausas(orden));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }

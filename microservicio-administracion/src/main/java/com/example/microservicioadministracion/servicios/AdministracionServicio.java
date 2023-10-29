@@ -4,6 +4,7 @@ import com.example.microservicioadministracion.modelos.DTOS.MonopatinKilometraje
 import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO;
 import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
+import com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionamiento;
 import com.example.microserviciomonopatin.modelos.entidades.Viaje;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +142,7 @@ public class AdministracionServicio {
             "http://localhost:8003/paradas",
             HttpMethod.GET,
             reqEntity,
-            new ParameterizedTypeReference<List<Parada>>() {
+            new ParameterizedTypeReference<>() {
             });
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -224,21 +225,36 @@ public class AdministracionServicio {
     }
 
     public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden) throws Exception {
-        String url = "http://localhost:8002/monopatines/kilometros";
-        // Verificamos si se pasó o no el parametro opcional "orden"
-        if(orden != null){
-            orden = orden.toUpperCase();
-            // Verificamos que el valor asociado a este haya sido uno valido
-            if(!orden.equals("ASC") && !orden.equals("DESC")){
-                throw new Exception("El parametró opcional 'orden' solo puede tomar el valor 'asc' o 'desc'!");
-            }
-            // Agregamos el final del endpoint
-            url += "/orden=" + orden;
+        String url = "http://localhost:8002/monopatines/tiempos";
+        return (List<MonopatinKilometrajeDTO>) this.traerTiemposMonopatines(url, orden);
+    }
+
+    public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposConPausas(String orden) throws Exception {
+        String url = "http://localhost:8002/monopatines/tiempos/conPausas";
+        return (List<MonopatinTiempoFuncionamiento>) this.traerTiemposMonopatines(url, orden);
+    }
+
+    public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposSinPausas(String orden) throws Exception {
+        String url = "http://localhost:8002/monopatines/tiempos/sinPausas";
+        return (List<MonopatinTiempoFuncionamiento>) this.traerTiemposMonopatines(url, orden);
+    }
+
+    // Funcion auxiliar privada que permite asignar el orden a la url pasada por paramatro.
+    // Además, ejecuta el request a la url y devuelve la lista de objetos obtenidos.
+    private List<?> traerTiemposMonopatines(String url_actual, String orden) throws Exception {
+        if (orden != null &&
+                (!orden.equalsIgnoreCase("ASC") &&
+                        !orden.equalsIgnoreCase("DESC"))) {
+            throw new Exception("El orden solo puede ser 'asc' o 'desc'!");
         }
+
+        // Asignamos el orden en base al orden pasado (si es que se pasó uno..., sino se devuelve "desc" por default)
+        url_actual += ((orden != null) && orden.equals("DESC"))? "?orden=desc" : "?orden=asc";
+
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
-        ResponseEntity<List<MonopatinKilometrajeDTO>> response = restTemplate.exchange(
-                url,
+        ResponseEntity<List<?>> response = restTemplate.exchange(
+                url_actual,
                 HttpMethod.GET,
                 reqEntity,
                 new ParameterizedTypeReference<>() {}
