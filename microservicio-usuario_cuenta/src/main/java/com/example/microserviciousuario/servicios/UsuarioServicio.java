@@ -1,12 +1,14 @@
 package com.example.microserviciousuario.servicios;
 
+import com.example.microserviciousuario.modelos.DTOS.TransferenciaCuentaDTO;
 import com.example.microserviciousuario.modelos.DTOS.UsuarioCreacionDTO;
+import com.example.microserviciousuario.modelos.entidades.Monopatin;
+import com.example.microserviciousuario.modelos.entidades.Parada;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.modelos.entidades.Viaje;
 import com.example.microserviciousuario.repositorios.UsuarioRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 @Service
 @AllArgsConstructor
@@ -75,7 +75,7 @@ public class UsuarioServicio {
         }
     }
 
-    /*@Transactional
+    @Transactional
     public Viaje finalizarViaje(Integer id_viaje) throws Exception {
         // Traemos el viaje:
         HttpHeaders headers = new HttpHeaders();
@@ -89,7 +89,7 @@ public class UsuarioServicio {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Viaje viaje = response.getBody();
-
+        Double importe = 0.0;
         if(viaje.getFin() == null) {
             viaje.setFin(LocalDateTime.now());
             Random random = new Random();
@@ -98,13 +98,13 @@ public class UsuarioServicio {
             Long randomLong = random.nextLong() * 100; // seteamos de forma aleatoria el tiempo estacionado
             viaje.setSegundos_estacionado(randomLong);
 
-            Double importe = 0.0;
+
             Double tarifa = viaje.getTarifa();
             Double porc_rec = viaje.getPorc_recargo();
             Long seg_estacionado = viaje.getSegundos_estacionado();
             Double quinceMinSegundos = new Double(15 * 60);
             Long tiempo_viaje = Duration.between(viaje.getFin(), viaje.getInicio()).toMinutes();
-            importe = (tiempo_viaje - ((seg_estacionado * 60) - quinceMinSegundos) * tarifa)
+            importe = (tiempo_viaje - ((seg_estacionado * 60) - quinceMinSegundos) * tarifa);
             if(seg_estacionado > quinceMinSegundos) {
                 importe += ((seg_estacionado - quinceMinSegundos) * tarifa * porc_rec);
             }
@@ -113,20 +113,65 @@ public class UsuarioServicio {
             throw new Exception("El viaje que intenta finalizar, ya fue finalizado.");
         }
 
-        // Traemos el valor de la tarifa
-       /* HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
-        ResponseEntity<Optional<Tarifa>> response3 = restTemplate.exchange(
-                "http://localhost:8001/administracion/tarifas/ultima",
+        // Habilitar monopatin como dispo
+        Long id_mono = viaje.getId_monopatin();
+        HttpEntity<Void> reqEntity2 = new HttpEntity<>(headers);
+        ResponseEntity<Monopatin> response2 = restTemplate.exchange(
+                "http://localhost:8002/monopatines/" + id_mono,
+                HttpMethod.GET,
+                reqEntity2,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Monopatin monopatin = response2.getBody();
+        Double latitud = monopatin.getLatitud();
+        Double longitud = monopatin.getLongitud();
+        //verificamos si la ubicacion del monopatin coincide con la ubicacion de alguna parada
+        HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
+        ResponseEntity<Optional<Parada>> response3 = restTemplate.exchange(
+                "http://localhost:8002/paradas/buscarParadaHabilitada/latitud/" + latitud + "/longitud/" + longitud,
                 HttpMethod.GET,
                 reqEntity3,
                 new ParameterizedTypeReference<>() {}
         );
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Habilitar monopatin como dispo
+        Optional<Parada> parada = response3.getBody();
+        if(parada.isEmpty()) {
+            throw new Exception("En la ubicacion que intenta dejar el monopatin, no existe una parada.");
+        }
+
+        if(!parada.get().getIsHabilitada()) {
+            throw new Exception("La parada en la que intenta dejar el monopatin, no esta habilitada.");
+        }
+
+        // ponemos como disponible el monopatin
+        monopatin.setEstado("disponible");
+
+        // guardamos la actualizacion del monopatin
+        HttpEntity<Monopatin> reqEntity4 = new HttpEntity<>(monopatin, headers);
+        ResponseEntity<Monopatin> response4 = restTemplate.exchange(
+                "http://localhost:8002/monopatin",
+                HttpMethod.PUT,
+                reqEntity3,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
         // Descontar dinero de cuenta:
-
-
+        // tomamos id de la cuenta
+        Long id_cuenta = viaje.getId_cuenta();
+        // pedimos la cuenta por id
+        HttpEntity<Void> reqEntity5 = new HttpEntity<>(headers);
+        ResponseEntity<TransferenciaCuentaDTO> response5 = restTemplate.exchange(
+                "http://localhost:8002/cuentas/" + id_cuenta + "/restarSaldo/" + importe,
+                HttpMethod.PUT,
+                reqEntity5,
+                new ParameterizedTypeReference<>() {}
+        );
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return viaje;
     }
-    */
+
 }
