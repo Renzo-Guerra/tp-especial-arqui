@@ -28,7 +28,9 @@ public class Cuenta implements Serializable {
     @ManyToMany
     private List<Usuario> usuarios;
 
-    public Cuenta() { }
+    public Cuenta() {
+        this.usuarios = new ArrayList<>();
+    }
 
     public Cuenta (Long id_mercado_pago){
         this.id_mercado_pago = id_mercado_pago;
@@ -36,5 +38,9 @@ public class Cuenta implements Serializable {
         this.isHabilitada = true;
         this.fecha_alta = LocalDateTime.now();
         this.usuarios = new ArrayList<>();
+    }
+
+    public void agregarUsuario(Usuario u) {
+        this.usuarios.add(u);
     }
 }

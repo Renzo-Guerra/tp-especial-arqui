@@ -1,6 +1,6 @@
 package com.example.microserviciousuario.controladores;
 
-import com.example.microserviciousuario.modelos.dto.UsuarioCreacion;
+import com.example.microserviciousuario.modelos.DTOS.UsuarioCreacionDTO;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.servicios.UsuarioServicio;
 import lombok.Data;
@@ -43,7 +43,7 @@ public class UsuarioControlador {
      * Crea a un usuario
      */
     @PostMapping("")
-    public ResponseEntity<?> crearUsuario(@RequestBody UsuarioCreacion usuario){
+    public ResponseEntity<?> crearUsuario(@RequestBody UsuarioCreacionDTO usuario){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.crearUsuario(usuario));
         } catch (Exception e) {
@@ -84,7 +84,7 @@ public class UsuarioControlador {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }*/
-    @PostMapping("/viajes/{id_viaje}")
+    /*@PostMapping("/viajes/{id_viaje}")
     public ResponseEntity<?> finalizarViaje(@PathVariable Integer id_viaje) {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.finalizarViaje(id_viaje));
@@ -92,6 +92,6 @@ public class UsuarioControlador {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
-
+    */
 
 }

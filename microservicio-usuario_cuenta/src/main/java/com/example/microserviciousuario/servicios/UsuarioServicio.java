@@ -1,6 +1,6 @@
 package com.example.microserviciousuario.servicios;
 
-import com.example.microserviciousuario.modelos.dto.UsuarioCreacion;
+import com.example.microserviciousuario.modelos.DTOS.UsuarioCreacionDTO;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.modelos.entidades.Viaje;
 import com.example.microserviciousuario.repositorios.UsuarioRepositorio;
@@ -41,7 +41,7 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public Usuario crearUsuario(UsuarioCreacion usuario) {
+    public Usuario crearUsuario(UsuarioCreacionDTO usuario) {
         Usuario nuevoUsuario = new Usuario(usuario.getNombre(), usuario.getApellido());
         return usuarioRepositorio.save(nuevoUsuario);
     }
@@ -75,7 +75,7 @@ public class UsuarioServicio {
         }
     }
 
-    @Transactional
+    /*@Transactional
     public Viaje finalizarViaje(Integer id_viaje) throws Exception {
         // Traemos el viaje:
         HttpHeaders headers = new HttpHeaders();
@@ -114,7 +114,7 @@ public class UsuarioServicio {
         }
 
         // Traemos el valor de la tarifa
-        HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
+       /* HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
         ResponseEntity<Optional<Tarifa>> response3 = restTemplate.exchange(
                 "http://localhost:8001/administracion/tarifas/ultima",
                 HttpMethod.GET,
@@ -125,5 +125,8 @@ public class UsuarioServicio {
 
         // Habilitar monopatin como dispo
         // Descontar dinero de cuenta:
+
+
     }
+    */
 }

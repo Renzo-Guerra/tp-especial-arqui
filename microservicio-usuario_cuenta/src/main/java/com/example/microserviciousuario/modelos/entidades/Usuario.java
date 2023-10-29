@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,12 +28,15 @@ public class Usuario implements Serializable {
     @ManyToMany(mappedBy = "usuarios")
     private List<Cuenta> cuentas;
 
-    public Usuario() { }
+    public Usuario() {
+        this.cuentas = new ArrayList<>();
+    }
 
     public Usuario(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecha = LocalDateTime.now();
+        this.cuentas = new ArrayList<>();
     }
 
 
