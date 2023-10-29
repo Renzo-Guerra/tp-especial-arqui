@@ -152,6 +152,16 @@ public class AdministracionControlador {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
+
+    @GetMapping("/reportes/monopatines/tiempos")
+    public ResponseEntity<?> reporteMonopatinesOrderByTiempos(@RequestParam(name = "conPausas", required = false) String conPausas){
+          try{
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(conPausas));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
     /**
      * Devuelve todos los roles
      */

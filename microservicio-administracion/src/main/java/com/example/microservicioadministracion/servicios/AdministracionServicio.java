@@ -223,11 +223,22 @@ public class AdministracionServicio {
         return respuesta.getBody();
     }
 
-    public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden) {
+    public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden) throws Exception {
+        String url = "http://localhost:8002/monopatines/kilometros";
+        // Verificamos si se pasó o no el parametro opcional "orden"
+        if(orden != null){
+            orden = orden.toUpperCase();
+            // Verificamos que el valor asociado a este haya sido uno valido
+            if(!orden.equals("ASC") && !orden.equals("DESC")){
+                throw new Exception("El parametró opcional 'orden' solo puede tomar el valor 'asc' o 'desc'!");
+            }
+            // Agregamos el final del endpoint
+            url += "/orden=" + orden;
+        }
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<List<MonopatinKilometrajeDTO>> response = restTemplate.exchange(
-                "http://localhost:8002/monopatines/kilometros?orden=" + orden,
+                url,
                 HttpMethod.GET,
                 reqEntity,
                 new ParameterizedTypeReference<>() {}

@@ -24,10 +24,9 @@ public class MonopatinControlador {
     }
 
     @GetMapping("/kilometros")
-    public ResponseEntity<?> traerOrdenadosPorKilometros(@RequestParam(name = "orden", required = false, defaultValue = "DESC") String orden){
-        String ord = (orden.equals("ASC"))? "ASC" : "DESC";
+    public ResponseEntity<?> traerOrdenadosPorKilometros(@RequestParam(name = "orden", required = false) String orden){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorKilometros(ord));
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorKilometros(orden));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }

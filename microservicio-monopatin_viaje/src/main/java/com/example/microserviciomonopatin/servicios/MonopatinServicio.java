@@ -76,10 +76,24 @@ public class MonopatinServicio {
         }
     }
 
-    public List<MonopatinKilometrajeDTO> traerOrdenadosPorKilometros(String ord) {
-        if(ord.equals("ASC"))
-            return this.monopatinRepositorio.traerOrdenadosPorKilometrosASC();
-        else
+    public List<MonopatinKilometrajeDTO> traerOrdenadosPorKilometros(String orden) throws Exception {
+        // En caso de que no se haya pasado parametro
+        if(orden == null){
             return this.monopatinRepositorio.traerOrdenadosPorKilometrosDESC();
+        }
+
+
+        // Verificamos que el valor asociado a este haya sido uno valido
+        orden = orden.toUpperCase();
+        if(!orden.equals("ASC") && !orden.equals("DESC")){
+            throw new Exception("El parametró opcional 'orden' solo puede tomar el valor 'asc' o 'desc'!");
+        }
+
+        // En caso que el valor asociado sea ASC
+        if(orden.equals("ASC"))
+            return this.monopatinRepositorio.traerOrdenadosPorKilometrosASC();
+
+        // En caso que el valor asociado sea DESC
+        return this.monopatinRepositorio.traerOrdenadosPorKilometrosDESC();
     }
 }
