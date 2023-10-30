@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
 @ToString

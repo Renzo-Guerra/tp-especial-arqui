@@ -81,6 +81,7 @@ public class ViajeServicio {
                 new ParameterizedTypeReference<>() {}
         );
         headers.setContentType(MediaType.APPLICATION_JSON);
+
         if(response3.getBody().isEmpty()) {
             throw new Exception("No existe una tarifa predefinida.");
         }

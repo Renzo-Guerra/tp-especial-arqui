@@ -4,7 +4,7 @@ package com.example.microserviciousuario.modelos.entidades;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
+
 @Data
 @Table(name = "monopatin")
 public class Monopatin {
