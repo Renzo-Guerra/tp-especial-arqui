@@ -5,6 +5,7 @@ import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import com.example.microserviciousuario.repositorios.CuentaRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CuentaServicio {
+    @Autowired
     private final CuentaRepositorio cuentaRepositorio;
 
     @Transactional
@@ -24,9 +26,9 @@ public class CuentaServicio {
         Optional<Cuenta> cuentaRecuperada = cuentaRepositorio.findById(id);
         if (cuentaRecuperada.isPresent()) {
             return cuentaRecuperada;
-        } else {
-            throw new Exception("No se pudo encontrar la cuenta con el ID proporcionado.");
         }
+
+        throw new Exception("No se pudo encontrar la cuenta con el ID proporcionado.");
     }
 
     @Transactional

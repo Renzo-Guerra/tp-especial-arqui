@@ -23,7 +23,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.traerTodos());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -35,18 +35,16 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.traerPorId(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-
-    // FIX: Falta pasarle el id_cuenta, id_cliente e id_monopatin
     @PostMapping("")
     public ResponseEntity<?> crearViaje(@RequestBody CrearViajeDTO viaje){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.crearViaje(viaje));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -58,7 +56,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.eliminarViaje(id));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -68,7 +66,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.editarViaje(id, viaje));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("No se pudo recuperar el dato.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo recuperar el dato.");
         }
     }
 
@@ -77,7 +75,7 @@ public class ViajeControlador {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.cantidadViajesMayorAXAño(cantidad, anio));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 

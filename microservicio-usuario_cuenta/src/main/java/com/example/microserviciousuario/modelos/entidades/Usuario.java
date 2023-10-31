@@ -39,5 +39,10 @@ public class Usuario implements Serializable {
         this.cuentas = new ArrayList<>();
     }
 
+    public void agregarCuenta( Cuenta c ) {
+        c.setUsuarios( List.of( this ) );
+        this.cuentas.add(c);
+    }
+
 
 }

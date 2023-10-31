@@ -26,7 +26,7 @@ public class Cuenta implements Serializable {
     @Column(name = "fecha_alta")
     private LocalDateTime fecha_alta;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
 
     public Cuenta() {
@@ -41,7 +41,8 @@ public class Cuenta implements Serializable {
         this.usuarios = new ArrayList<>();
     }
 
-    public void agregarUsuario(Usuario u) {
+    public void agregarUsuario( Usuario u ) {
+        u.setCuentas( List.of( this ) );
         this.usuarios.add(u);
     }
 }

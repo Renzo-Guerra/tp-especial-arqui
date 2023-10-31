@@ -55,14 +55,17 @@ public class CargarDatos {
                 cuentaRepositorio.save(c);
             }
         }
-
+        // Traemos todos los usuarios
         Iterable<Usuario> usuarios = this.usuarioRepositorio.findAll();
-
+        // Por cada usuario traemos una cuenta y agregamos el usuario a la cuenta
         for (Usuario usuario : usuarios) {
             Long id_usuario = usuario.getId();
-            Optional<Cuenta> cuenta = this.cuentaRepositorio.findById(id_usuario);
+            // Traemos las cuenta en base a un id pero a su vez nos traemos la lista de usuarios asignada a la cuenta
+            Optional<Cuenta> cuenta = this.cuentaRepositorio.findByIdWithCuentas(id_usuario);
             if (cuenta.isPresent()) {
+                // Agregamos el usuario a la cuenta
                 cuenta.get().agregarUsuario(usuario);
+                // Volvemos a guardar la cuenta (ya con el usuario cargado)
                 this.cuentaRepositorio.save(cuenta.get());
             }
         }

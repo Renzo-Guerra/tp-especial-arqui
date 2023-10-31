@@ -13,26 +13,18 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Table(name = "usuario")
 public class Usuario implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String apellido;
-    @Column(name = "fecha_alta")
-    private LocalDateTime fecha;
-
-    @ManyToMany(mappedBy = "usuarios")
-    private List<Cuenta> cuentas;
+    private LocalDateTime fecha_alta;
 
     public Usuario() { }
 
     public Usuario(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha = LocalDateTime.now();
+        this.fecha_alta = LocalDateTime.now();
     }
-
 
 }

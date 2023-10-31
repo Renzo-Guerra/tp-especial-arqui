@@ -59,18 +59,15 @@ public class ViajeServicio {
         // Validamos que la cuenta tenga credito
         if(cuenta.getSaldo() <= 0){ throw new Exception("La cuenta no dispone de fondos suficientes!!!"); }
 
-
         // Validamos que el Usuario exista:
         HttpEntity<Void> reqEntity2 = new HttpEntity<>(headers);
         ResponseEntity<Optional<Usuario>> response2 = restTemplate.exchange(
-                "http://localhost:8004/usuarios/" + viaje.getId_cuenta(),
+                "http://localhost:8004/usuarios/" + viaje.getId_usuario(),
                 HttpMethod.GET,
                 reqEntity2,
                 new ParameterizedTypeReference<>() {}
         );
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-
 
         // Traemos el valor de la tarifa
         HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
