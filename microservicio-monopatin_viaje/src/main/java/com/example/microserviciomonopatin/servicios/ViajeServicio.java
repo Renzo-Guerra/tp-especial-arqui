@@ -1,6 +1,7 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.DTOS.CrearViajeDTO;
+import com.example.microserviciomonopatin.modelos.DTOS.UsuarioCuentaDTO;
 import com.example.microserviciomonopatin.modelos.entidades.*;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
 import com.example.microserviciomonopatin.repositorios.ViajeRepositorio;
@@ -121,4 +122,31 @@ public class ViajeServicio {
         return viajeRepositorio.cantidadViajesMayorAXAño(cantidad, anio);
     }
 
+    public Viaje finalizarViaje(CrearViajeDTO viaje) {
+//        private Long id_cuenta;
+//        private Long id_usuario;
+//        private Long id_monopatin;
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> httpEntity = new HttpEntity<>(headers);
+        ResponseEntity<UsuarioCuentaDTO> response = restTemplate.exchange(
+                "http://localhost:8005/cuenta/",
+                HttpMethod.GET,
+                httpEntity,
+                new ParameterizedTypeReference<>() {});
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        // Verificar que exista el usuario
+        // Verificar que exista la cuenta
+        // Verificar que el usuario y la cuenta esten vinculados
+        // Verificar que el monopatin exista y esté en modo uso
+        // Verificar que las coordenadas del monopatin sean las mismas que la de una parada habilitada
+        // Dar como terminado el viaje
+        // Descontar dinero de la cuenta (La cuenta puede quedar con saldo negativo)
+        // Devolver el viaje finalizado
+
+        return null;
+    }
 }

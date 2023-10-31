@@ -1,6 +1,7 @@
 package com.example.microserviciousuario.servicios;
 
 import com.example.microserviciousuario.modelos.DTOS.TransferenciaCuentaDTO;
+import com.example.microserviciousuario.modelos.DTOS.UsuarioCuentaDTO;
 import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import com.example.microserviciousuario.repositorios.CuentaRepositorio;
 import jakarta.transaction.Transactional;
@@ -99,5 +100,11 @@ public class CuentaServicio {
         Cuenta cuentaCambiada = this.cuentaRepositorio.save(cuenta);
 
         return new TransferenciaCuentaDTO(montoAnterior, cuentaCambiada.getSaldo(), monto_quitar);
+    }
+
+    public UsuarioCuentaDTO traerCuentaUsuarioPorId(Long idCuenta, Long idUsuario) {
+        // Optional<UsuarioCuentaDTO> match = this.cuentaRepositorio.traerCuentaUsuarioPorId(idCuenta, idUsuario);
+
+        return null;
     }
 }

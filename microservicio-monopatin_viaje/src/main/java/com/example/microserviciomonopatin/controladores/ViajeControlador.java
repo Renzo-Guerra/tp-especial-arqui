@@ -48,6 +48,15 @@ public class ViajeControlador {
         }
     }
 
+    @PostMapping("")
+    public ResponseEntity<?> finalizarViaje(@RequestBody CrearViajeDTO viaje){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.finalizarViaje(viaje));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     /**
      * Elimina a un viaje
      */

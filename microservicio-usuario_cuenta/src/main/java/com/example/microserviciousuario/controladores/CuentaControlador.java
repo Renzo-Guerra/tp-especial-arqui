@@ -38,6 +38,15 @@ public class CuentaControlador {
         }
     }
 
+    @GetMapping("/{id_cuenta}/usuario/{id_usuario}")
+    public ResponseEntity<?> traerCuentaUsuarioPorId(@PathVariable Long id_cuenta, @PathVariable Long id_usuario){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(cuentaServicio.traerCuentaUsuarioPorId(id_cuenta, id_usuario));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
     /**
      * Crea a una cuenta
      */

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CrearViajeDTO {
     private Long id_cuenta;
     private Long id_usuario;

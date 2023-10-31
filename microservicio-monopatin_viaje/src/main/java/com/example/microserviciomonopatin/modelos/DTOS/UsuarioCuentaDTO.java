@@ -1,12 +1,12 @@
-package com.example.microserviciousuario.modelos.DTOS;
+package com.example.microserviciomonopatin.modelos.DTOS;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioCuentaDTO {
     private Long id_cuenta;
     private Long id_usuario;

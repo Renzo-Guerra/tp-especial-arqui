@@ -11,9 +11,11 @@ import java.util.Optional;
 @Repository
 public interface UsuarioRepositorio extends CrudRepository<Usuario, Long> {
     /**
-     * @param id del usuairo a recuperar
+     * @param id_usuario del usuario a recuperar
      * @return Optional<Usuario> la cual tiene asociada una lista de Cuentas
      */
-    @Query("SELECT u From Usuario u JOIN FETCH u.cuentas WHERE u.id = :id")
-    Optional<Cuenta> findByIdWithUsuarios(Long id);
+    @Query("SELECT u " +
+            "From Usuario u LEFT JOIN FETCH u.cuentas " +
+            "WHERE u.id = :id_usuario")
+    Optional<Cuenta> findByIdWithUsuarios(Long id_usuario);
 }

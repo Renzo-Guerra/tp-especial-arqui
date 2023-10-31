@@ -26,8 +26,8 @@ public class CargarDatos {
     private UsuarioRepositorio usuarioRepositorio;
     @Autowired
     private CuentaRepositorio cuentaRepositorio;
-
     public void cargarDatosDesdeCSV() throws IOException {
+
         File archivoCSV = ResourceUtils.getFile("microservicio-usuario_cuenta/src/main/java/com/example/microserviciousuario/csv/usuarios.csv");
         File archivoCSV2 = ResourceUtils.getFile("microservicio-usuario_cuenta/src/main/java/com/example/microserviciousuario/csv/cuentas.csv");
 
@@ -63,11 +63,21 @@ public class CargarDatos {
             // Traemos las cuenta en base a un id pero a su vez nos traemos la lista de usuarios asignada a la cuenta
             Optional<Cuenta> cuenta = this.cuentaRepositorio.findByIdWithCuentas(id_usuario);
             if (cuenta.isPresent()) {
+                System.out.println("Cuenta " + id_usuario + ": ");
+                System.out.println(cuenta.get());
                 // Agregamos el usuario a la cuenta
                 cuenta.get().agregarUsuario(usuario);
                 // Volvemos a guardar la cuenta (ya con el usuario cargado)
                 this.cuentaRepositorio.save(cuenta.get());
             }
         }
+
+//        System.out.println("Verificando si anda: ");
+//        Optional<Cuenta> cuenta2 = this.cuentaRepositorio.findByIdWithCuentas(1L);
+//        if(cuenta2.isPresent()){
+//            System.out.println("Existe");
+//            Cuenta cuen = cuenta2.get();
+//            System.out.println(cuen);
+//        }
     }
 }
