@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -174,4 +175,16 @@ public class UsuarioServicio {
         return viaje;
     }
 
+    public Iterable<Monopatin> getMonopatinesCercanos(Double latitud, Double longitud, Double rango) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<Iterable<Monopatin>> response = restTemplate.exchange(
+                "http://localhost:8002/monopatines/latitud/" + latitud + "/longitud/" + longitud + "/rango/" + rango,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<>() {});
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return response.getBody();
+    }
 }

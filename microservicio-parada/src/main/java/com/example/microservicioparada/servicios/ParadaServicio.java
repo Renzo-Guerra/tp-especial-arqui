@@ -39,13 +39,13 @@ public class ParadaServicio {
         return paradaRespositorio.save(parada);
     }
 
-    @Transactional
-    public Parada eliminar(Long id_parada) throws Exception {
-        Parada parada_eliminar = this.traerPorId(id_parada);
-
-        this.paradaRespositorio.deleteById(id_parada);
-        return parada_eliminar;
-    }
+//    @Transactional
+//    public Parada eliminar(Long id_parada) throws Exception {
+//        Parada parada_eliminar = this.traerPorId(id_parada);
+//
+//        this.paradaRespositorio.deleteById(id_parada);
+//        return parada_eliminar;
+//    }
 
     @Transactional
     public Parada editar(Long id_parada, Parada nuevaInfo) throws Exception {
