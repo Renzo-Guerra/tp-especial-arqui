@@ -136,4 +136,16 @@ public class MonopatinServicio {
         // En caso que el valor asociado sea DESC
         return this.monopatinRepositorio.traerOrdenadosPorTiempoSinPausasDESC();
     }
+
+    public Iterable<Monopatin> getMonopatinesCercanos(Double latitud, Double longitud, Double rango) throws Exception {
+        if(latitud == null || longitud == null || rango == null){
+            throw new Exception("Alguno de los parametros pasados es nulo, verificar latitud, longitud y rango!!!");
+        }
+        Double latitudMinima = latitud - rango;
+        Double latitudMaxima = latitud + rango;
+        Double longitudMinima = longitud - rango;
+        Double longitudMaxima = longitud + rango;
+
+        return this.monopatinRepositorio.getMonopatinesCercanos(latitudMinima, latitudMaxima, longitudMinima, longitudMaxima);
+    }
 }

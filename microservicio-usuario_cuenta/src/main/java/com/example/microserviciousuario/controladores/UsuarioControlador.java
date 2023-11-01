@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Month;
+import java.util.Date;
+
 @RestController
 @Data
 @RequestMapping("/usuarios")
@@ -70,6 +73,26 @@ public class UsuarioControlador {
     public ResponseEntity<?> editarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.editarUsuario(id, usuario));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
+
+
+
+    /**
+     * Lo ideal en la vida real sería que la app que esté implementando este endpoint tenga la latitud
+     * y longitud de las coordenadas del dispositivo electronico donde se está corriendo la app.
+     * Nosotros directamente hacemos el endpoint donde se pasa la latitud y longitud donde se supone
+     * que está el usuario actual, a su vez, se le pasa un valor el cual será el rango de cercania
+     *
+     * con respecto a la ubicacion actual del usuario
+     */
+    @GetMapping("/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}/rango/{rango}")
+    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud, @PathVariable Double rango){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.getMonopatinesCercanos(latitud, longitud, rango));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }

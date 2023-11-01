@@ -23,6 +23,15 @@ public class MonopatinControlador {
         }
     }
 
+    @GetMapping("/latitud/{latitud}/longitud/{longitud}/rango/{rango}")
+    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud, @PathVariable Double rango){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.getMonopatinesCercanos(latitud, longitud, rango));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/kilometros")
     public ResponseEntity<?> traerOrdenadosPorKilometros(@RequestParam(name = "orden", required = false) String orden){
         try{

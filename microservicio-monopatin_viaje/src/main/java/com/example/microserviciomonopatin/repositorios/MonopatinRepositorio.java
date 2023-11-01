@@ -66,4 +66,11 @@ public interface MonopatinRepositorio extends CrudRepository<Monopatin, Long> {
             """)
     List<MonopatinTiempoFuncionamiento> traerOrdenadosPorTiempoSinPausasASC();
 
+    @Query("""
+            SELECT m 
+            FROM Monopatin m 
+            WHERE m.estado = 'disponible' AND 
+               (m.latitud BETWEEN :latitudMinima AND :latitudMaxima) AND 
+                (m.longitud BETWEEN :longitudMinima AND :longitudMaxima)""")
+    Iterable<Monopatin> getMonopatinesCercanos(Double latitudMinima, Double latitudMaxima, Double longitudMinima, Double longitudMaxima);
 }
