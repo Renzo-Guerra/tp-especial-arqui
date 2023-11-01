@@ -5,6 +5,7 @@ import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO
 import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
 import com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionamiento;
+import com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO;
 import com.example.microserviciomonopatin.modelos.entidades.Viaje;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,5 +264,18 @@ public class AdministracionServicio {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return response.getBody();
+    }
+
+    public ReporteFacturacionDTO facturacionViajesDesdeHastaAnio(Integer mes1, Integer mes2, Integer anio) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<ReporteFacturacionDTO> respuesta = restTemplate.exchange(
+                "http://localhost:8002/viajes/facturacionViajesDesde/" + mes1 + "/hasta/"+ mes2 + "/año/" + anio,
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<ReporteFacturacionDTO>() {});
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return respuesta.getBody();
     }
 }
