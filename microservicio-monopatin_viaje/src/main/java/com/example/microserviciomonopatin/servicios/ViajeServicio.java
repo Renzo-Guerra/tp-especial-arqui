@@ -159,7 +159,7 @@ public class ViajeServicio {
 
         monopatin.setEstado("disponible");
         viaje_a_finalizar.setFin(LocalDateTime.now());
-        viaje_a_finalizar.setSegundos_estacionado((long) (Math.floor(Math.random() + 1) * Math.floor(Math.random() + 1) * 10));
+        viaje_a_finalizar.setSegundos_estacionado((long) (Math.floor(Math.random() + 1) * Math.floor(Math.random() + 1) * 100));
         // Los kilometros recorridos los llenamos de forma random,
         // pero la idea seria que se calcule en base al tiempo del viaje
         viaje_a_finalizar.setKm_recorridos(Math.floor((Math.random() + 0.1D)  * 10));
