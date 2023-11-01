@@ -1,6 +1,7 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.DTOS.CrearViajeDTO;
+import com.example.microserviciomonopatin.modelos.DTOS.ReporteMonopatinesXViaje;
 import com.example.microserviciomonopatin.modelos.DTOS.UsuarioCuentaDTO;
 import com.example.microserviciomonopatin.modelos.entidades.*;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
@@ -118,7 +119,7 @@ public class ViajeServicio {
 //    }
 
     @Transactional
-    public List<Viaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio) throws Exception {
+    public List<ReporteMonopatinesXViaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio) throws Exception {
         return viajeRepositorio.cantidadViajesMayorAXAño(cantidad, anio);
     }
 

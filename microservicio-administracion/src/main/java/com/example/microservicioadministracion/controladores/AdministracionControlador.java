@@ -46,14 +46,14 @@ public class AdministracionControlador {
         }
     }
 
-    @DeleteMapping("/monopatines/{id}")
-    public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.eliminarMonopatin(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
-        }
-    }
+//    @DeleteMapping("/monopatines/{id}")
+//    public ResponseEntity<?> eliminarMonopatin(@PathVariable Long id){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.eliminarMonopatin(id));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+//        }
+//    }
 
     @PostMapping("/paradas")
     public ResponseEntity<?> agregarParada(@RequestBody Parada parada){
@@ -144,10 +144,9 @@ public class AdministracionControlador {
     }
 
     @GetMapping("/reportes/monopatines/kilometros")
-    public ResponseEntity<?> reporteMonopatinesOrderByKilometros(@RequestParam(name = "orden", required = false, defaultValue = "DESC") String orden){
-        String ord = (orden.equals("ASC"))? "ASC" : "DESC";
+    public ResponseEntity<?> reporteMonopatinesOrderByKilometros(@RequestParam(name = "orden", required = false) String orden){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(ord));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(orden));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
