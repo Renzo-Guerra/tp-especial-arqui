@@ -1,7 +1,7 @@
 package com.example.microserviciousuario.modelos.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,11 +26,10 @@ public class Usuario implements Serializable {
     private LocalDateTime fecha;
 
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties( value = "usuarios", allowSetters = true )
     private List<Cuenta> cuentas;
 
-    public Usuario() {
-        this.cuentas = new ArrayList<>();
-    }
+    public Usuario() {}
 
     public Usuario(String nombre, String apellido) {
         this.nombre = nombre;
@@ -41,6 +40,7 @@ public class Usuario implements Serializable {
 
     public void agregarCuenta( Cuenta c ) {
         c.setUsuarios( List.of( this ) );
+        if( this.cuentas == null ) this.cuentas = new ArrayList<>();
         this.cuentas.add(c);
     }
 

@@ -1,11 +1,10 @@
 package com.example.microserviciousuario.modelos.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,12 +25,16 @@ public class Cuenta implements Serializable {
     @Column(name = "fecha_alta")
     private LocalDateTime fecha_alta;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany( fetch = FetchType.LAZY )
+    @JoinTable(
+            name = "rel_cuenta__usuario",
+            joinColumns = @JoinColumn(name = "cuenta_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    @JsonIgnoreProperties( value = "cuentas", allowSetters = true )
     private List<Usuario> usuarios;
 
-    public Cuenta() {
-        this.usuarios = new ArrayList<>();
-    }
+    public Cuenta() {}
 
     public Cuenta (Long id_mercado_pago){
         this.id_mercado_pago = id_mercado_pago;
@@ -43,6 +46,7 @@ public class Cuenta implements Serializable {
 
     public void agregarUsuario( Usuario u ) {
         u.setCuentas( List.of( this ) );
+        if( this.usuarios == null ) this.usuarios = new ArrayList<>();
         this.usuarios.add(u);
     }
 }

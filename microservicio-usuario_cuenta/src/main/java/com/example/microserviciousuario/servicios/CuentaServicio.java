@@ -4,11 +4,11 @@ import com.example.microserviciousuario.modelos.DTOS.TransferenciaCuentaDTO;
 import com.example.microserviciousuario.modelos.DTOS.UsuarioCuentaDTO;
 import com.example.microserviciousuario.modelos.entidades.Cuenta;
 import com.example.microserviciousuario.repositorios.CuentaRepositorio;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,12 +17,14 @@ public class CuentaServicio {
     @Autowired
     private final CuentaRepositorio cuentaRepositorio;
 
-    @Transactional
-    public Iterable<Cuenta> traerTodas() {
+
+    // EL @Transactional que deben usar se importa desde spingframwork. El de jakarta no sirve.
+    @Transactional( readOnly = true )
+    public List<Cuenta> traerTodas() {
         return cuentaRepositorio.findAll();
     }
 
-    @Transactional
+    @Transactional( readOnly = true )
     public Optional<Cuenta> traerPorId(Long id) throws Exception {
         Optional<Cuenta> cuentaRecuperada = cuentaRepositorio.findById(id);
         if (cuentaRecuperada.isPresent()) {
