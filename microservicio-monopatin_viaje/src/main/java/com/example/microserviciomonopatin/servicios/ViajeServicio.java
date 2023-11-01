@@ -1,11 +1,8 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.DTOS.CrearViajeDTO;
-<<<<<<< HEAD
 import com.example.microserviciomonopatin.modelos.DTOS.ReporteMonopatinesXViaje;
-=======
 import com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO;
->>>>>>> 9ec1f590a8a2f2c8ec04df0fe8105ff8e03f73d6
 import com.example.microserviciomonopatin.modelos.DTOS.UsuarioCuentaDTO;
 import com.example.microserviciomonopatin.modelos.entidades.*;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
