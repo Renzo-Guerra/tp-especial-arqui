@@ -1,6 +1,8 @@
 package com.example.microserviciomonopatin.repositorios;
 
+import com.example.microserviciomonopatin.modelos.DTOS.ReporteMonopatinesXViaje;
 import com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO;
+
 import com.example.microserviciomonopatin.modelos.entidades.Viaje;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,14 +14,13 @@ import java.util.List;
 public interface ViajeRepositorio extends CrudRepository<Viaje, Long> {
 
     @Query("""
-            SELECT v 
+            SELECT new com.example.microserviciomonopatin.modelos.DTOS.ReporteMonopatinesXViaje(v.id_monopatin, COUNT(v.fin)) 
             FROM Viaje v 
             WHERE EXTRACT(YEAR FROM v.fin) = :anio
             GROUP BY v.id_monopatin
             HAVING count(v.fin) > :cantidad
             """)
-    List<Viaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio);
-
+    List<ReporteMonopatinesXViaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio);
     @Query("""
             SELECT new com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO(:mes1, :mes2, :anio, sum(v.costo_total_viaje))
             FROM Viaje v  

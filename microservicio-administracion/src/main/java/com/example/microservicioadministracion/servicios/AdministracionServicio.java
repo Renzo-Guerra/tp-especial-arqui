@@ -1,6 +1,7 @@
 package com.example.microservicioadministracion.servicios;
 
 import com.example.microservicioadministracion.modelos.DTOS.MonopatinKilometrajeDTO;
+import com.example.microservicioadministracion.modelos.DTOS.ReporteMonopatinesXViaje;
 import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO;
 import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
@@ -213,14 +214,15 @@ public class AdministracionServicio {
         return respuesta2.getBody();
     }
 
-    public List<Viaje> reporteCantidadViajesPorAnio(Integer cantidad, Integer anio) throws Exception {
+    public List<ReporteMonopatinesXViaje> reporteCantidadViajesPorAnio(Integer cantidad, Integer anio) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
-        ResponseEntity<List<Viaje>> respuesta = restTemplate.exchange(
+        ResponseEntity<List<ReporteMonopatinesXViaje>> respuesta = restTemplate.exchange(
                 "http://localhost:8002/viajes/cantidadViajesMayorA/" + cantidad + "/año/ "+ anio,
                 HttpMethod.GET,
                 reqEntity,
-                new ParameterizedTypeReference<List<Viaje>>() {});
+                new ParameterizedTypeReference<>() {
+                });
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta.getBody();
