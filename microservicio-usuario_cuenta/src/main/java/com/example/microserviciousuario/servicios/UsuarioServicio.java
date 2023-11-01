@@ -7,7 +7,7 @@ import com.example.microserviciousuario.modelos.entidades.Parada;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.modelos.entidades.Viaje;
 import com.example.microserviciousuario.repositorios.UsuarioRepositorio;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;

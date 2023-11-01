@@ -48,36 +48,33 @@ public class ViajeControlador {
         }
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> finalizarViaje(@RequestBody CrearViajeDTO viaje){
+    @PutMapping("/{id_viaje}")
+    public ResponseEntity<?> finalizarViaje(@PathVariable Long id_viaje){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.finalizarViaje(viaje));
+            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.finalizarViaje(id_viaje));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    /**
-     * Elimina a un viaje
-     */
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> eliminarViaje(@PathVariable Long id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.eliminarViaje(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
+//    @DeleteMapping("{id}")
+//    public ResponseEntity<?> eliminarViaje(@PathVariable Long id){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.eliminarViaje(id));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//    }
 
-    // FIX: Falta validar que existan id_cuenta, id_cliente e id_monopatin
-    @PutMapping("/{id}")
-    public ResponseEntity<?> editarViaje(@PathVariable Long id, @RequestBody Viaje viaje){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.editarViaje(id, viaje));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo recuperar el dato.");
-        }
-    }
+    // IMPORTANTE: Deberíamos eliminar el metodo editar viaje y el metodo eliminar viaje, no tienen sentido en la aplicacion
+//    @PutMapping("/{id}")
+//    public ResponseEntity<?> editarViaje(@PathVariable Long id, @RequestBody Viaje viaje){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.editarViaje(id, viaje));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo recuperar el dato.");
+//        }
+//    }
 
     @GetMapping("/cantidadViajesMayorA/{cantidad}/año/{anio}")
     public ResponseEntity<?> cantidadViajesMayorAXAño(@PathVariable Integer cantidad, @PathVariable Integer anio){

@@ -27,6 +27,7 @@ public class Viaje implements Serializable {
     private Double tarifa;
     private Double porc_recargo;
     private Long segundos_estacionado;
+    private Double costo_total_viaje;
 
     public Viaje() { }
 
@@ -40,5 +41,6 @@ public class Viaje implements Serializable {
         this.tarifa = tarifa;
         this.porc_recargo = porc_recargo;
         this.segundos_estacionado = new Long(0L);
+        this.costo_total_viaje = 0.0;
     }
 }

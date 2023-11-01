@@ -2,10 +2,11 @@ package com.example.microservicioparada.servicios;
 
 import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.repositorios.ParadaRespositorio;
-import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -71,9 +72,14 @@ public class ParadaServicio {
         }
     }
 
-    public Optional<Parada> buscarParadaPorCoordenadas(Double latitud, Double longitud) throws Exception {
+    public Parada buscarParadaPorCoordenadas(Double latitud, Double longitud) throws Exception {
         if(latitud == null || longitud == null){ throw new Exception("Latitud o longitud son nulas!!!"); }
+        Optional<Parada> posible_parada = this.paradaRespositorio.traerPorCoordenadas(latitud, longitud);
 
-        return this.paradaRespositorio.traerPorCoordenadas(latitud, longitud);
+        if(posible_parada.isEmpty()){
+            throw new Exception("No existe parada con esas coordenadas!");
+        }
+
+        return posible_parada.get();
     }
 }

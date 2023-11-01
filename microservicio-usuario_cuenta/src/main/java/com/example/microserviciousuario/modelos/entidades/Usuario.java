@@ -22,8 +22,7 @@ public class Usuario implements Serializable {
     private Long id;
     private String nombre;
     private String apellido;
-    @Column(name = "fecha_alta")
-    private LocalDateTime fecha;
+    private LocalDateTime fecha_alta;
 
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     @JsonIgnoreProperties( value = "usuarios", allowSetters = true )
@@ -34,7 +33,7 @@ public class Usuario implements Serializable {
     public Usuario(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha = LocalDateTime.now();
+        this.fecha_alta = LocalDateTime.now();
         this.cuentas = new ArrayList<>();
     }
 

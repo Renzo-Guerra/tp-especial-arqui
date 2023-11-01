@@ -32,7 +32,7 @@ public class ParadaControlador {
         }
     }
 
-    @GetMapping("/buscarParadaHabilitada/latitud/{latitud}/longitud/{longitud}")
+    @GetMapping("/buscarParada/latitud/{latitud}/longitud/{longitud}")
     public ResponseEntity<?> buscarParadaPorCoordenadas(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.buscarParadaPorCoordenadas(latitud, longitud));

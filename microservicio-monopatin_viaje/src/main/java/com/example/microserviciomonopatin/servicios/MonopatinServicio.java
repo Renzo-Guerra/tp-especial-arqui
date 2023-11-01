@@ -4,7 +4,7 @@ import com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionami
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
 import com.example.microserviciomonopatin.modelos.DTOS.MonopatinKilometrajeDTO;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 

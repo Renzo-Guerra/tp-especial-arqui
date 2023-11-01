@@ -38,7 +38,7 @@ public class CargarDatos {
                 Usuario u = new Usuario();
                 u.setNombre(csvRecord.get("nombre"));
                 u.setApellido(csvRecord.get("apellido"));
-                u.setFecha(LocalDateTime.now());
+                u.setFecha_alta(LocalDateTime.now());
                 usuarioRepositorio.save(u);
             }
         }

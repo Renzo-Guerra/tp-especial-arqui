@@ -8,6 +8,7 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -48,5 +49,18 @@ public class Cuenta implements Serializable {
         u.setCuentas( List.of( this ) );
         if( this.usuarios == null ) this.usuarios = new ArrayList<>();
         this.usuarios.add(u);
+    }
+
+    public boolean contieneUsuario(Long id_usuario){
+        Iterator<Usuario> it_usuarios = this.getUsuarios().iterator();
+
+        while(it_usuarios.hasNext()){
+            Usuario usuario_actual = it_usuarios.next();
+            if(usuario_actual.getId().equals(id_usuario)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

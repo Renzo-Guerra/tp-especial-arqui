@@ -18,13 +18,5 @@ public class Usuario implements Serializable {
     private String nombre;
     private String apellido;
     private LocalDateTime fecha_alta;
-
-    public Usuario() { }
-
-    public Usuario(String nombre, String apellido) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fecha_alta = LocalDateTime.now();
-    }
-
+    private List<Cuenta> cuentas;
 }
