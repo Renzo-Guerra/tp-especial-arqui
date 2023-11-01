@@ -1,7 +1,11 @@
 package com.example.microserviciomonopatin.servicios;
 
 import com.example.microserviciomonopatin.modelos.DTOS.CrearViajeDTO;
+<<<<<<< HEAD
 import com.example.microserviciomonopatin.modelos.DTOS.ReporteMonopatinesXViaje;
+=======
+import com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO;
+>>>>>>> 9ec1f590a8a2f2c8ec04df0fe8105ff8e03f73d6
 import com.example.microserviciomonopatin.modelos.DTOS.UsuarioCuentaDTO;
 import com.example.microserviciomonopatin.modelos.entidades.*;
 import com.example.microserviciomonopatin.repositorios.MonopatinRepositorio;
@@ -41,7 +45,6 @@ public class ViajeServicio {
 
         // Error, estado monopatin no disponible
         if(!monopatin.getEstado().equals("disponible")){throw new Exception("El monopatin no se encuentra disponible!!!");}
-        monopatin.setEstado("ocupado");
 
         // Traemos la cuenta:
         HttpHeaders headers = new HttpHeaders();
@@ -84,7 +87,16 @@ public class ViajeServicio {
         Tarifa tarifa = response2.getBody().get();
 
         // Persistimos el cambio de estado del monopatin
-        this.monopatinServicio.crear(monopatin);
+        monopatin.setEstado("ocupado");
+
+        try{
+            this.monopatinServicio.crear(monopatin);
+        }catch(Exception e){
+            // En caso de que el estado no sea valido volvemos a setear el estado del monopatin como valido
+            monopatin.setEstado("disponible");
+            throw e;
+        }
+
         // Persistimos el nuevo viaje y lo devolvemos
         return viajeRepositorio.save(new Viaje(viaje.getId_cuenta(), viaje.getId_usuario(), viaje.getId_monopatin(), tarifa.getTarifa(), tarifa.getPorc_recargo()));
     }
@@ -193,5 +205,10 @@ public class ViajeServicio {
 
         // Damos por finalizado el viaje y devolvemos el viaje con todas sus columnas
         return viajeRepositorio.save(viaje_a_finalizar);
+    }
+
+    @Transactional
+    public ReporteFacturacionDTO facturacionViajesRangoMesesPorAnio(Integer mes1, Integer mes2, Integer anio) {
+        return viajeRepositorio.facturacionViajesRangoMesesPorAnio(mes1, mes2, anio);
     }
 }

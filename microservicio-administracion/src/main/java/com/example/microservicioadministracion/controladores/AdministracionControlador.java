@@ -135,9 +135,9 @@ public class AdministracionControlador {
     }
 
     @GetMapping("/reportes/facturacionViajesDesde/{mes1}/hasta/{mes2}/año/{anio}")
-    public ResponseEntity<?> reporteFacturacionViajesRangoMesesPorAnio(@PathVariable Integer cantidad, @PathVariable Integer anio){
+    public ResponseEntity<?> reporteFacturacionViajesRangoMesesPorAnio(@PathVariable Integer mes1, @PathVariable Integer mes2, @PathVariable Integer anio){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteCantidadViajesPorAnio(cantidad, anio));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.facturacionViajesDesdeHastaAnio(mes1, mes2, anio));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }

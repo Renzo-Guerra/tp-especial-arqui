@@ -85,4 +85,13 @@ public class ViajeControlador {
         }
     }
 
+    @GetMapping("/facturacionViajesDesde/{mes1}/hasta/{mes2}/año/{anio}")
+    public ResponseEntity<?> facturacionViajesRangoMesesPorAnio(@PathVariable Integer mes1, @PathVariable Integer mes2, @PathVariable Integer anio){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.facturacionViajesRangoMesesPorAnio(mes1, mes2, anio));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
 }
