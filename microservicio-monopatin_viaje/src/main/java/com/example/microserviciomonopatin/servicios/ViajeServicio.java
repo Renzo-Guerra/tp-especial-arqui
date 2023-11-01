@@ -13,7 +13,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -174,7 +176,14 @@ public class ViajeServicio {
         viaje_a_finalizar.setKm_recorridos(Math.floor((Math.random() + 0.1D)  * 10));
         // EL costo del viaje es en funcion de los kilometros recorridos
 
-        Double costo_total = viaje_a_finalizar.getTarifa() * viaje_a_finalizar.getKm_recorridos();
+        LocalDateTime fechaInicio = viaje_a_finalizar.getInicio();
+        LocalDateTime fechaFin = viaje_a_finalizar.getFin();
+
+        // Calcula la diferencia en minutos
+        Duration duracion = Duration.between(fechaInicio, fechaFin);
+        long minutosViaje = duracion.toMinutes();
+
+        Double costo_total = minutosViaje * viaje_a_finalizar.getTarifa();
         if(viaje_a_finalizar.getSegundos_estacionado() > (15*60)){
             costo_total *= viaje_a_finalizar.getPorc_recargo();
         }

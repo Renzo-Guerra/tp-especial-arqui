@@ -28,6 +28,7 @@ public class AdministracionControlador {
         }
     }
 
+
     @PutMapping("/monopatines/{id}/estado/{estado}")
     public ResponseEntity<?> cambiarEstado(@PathVariable Long id, @PathVariable String estado){
         try{
