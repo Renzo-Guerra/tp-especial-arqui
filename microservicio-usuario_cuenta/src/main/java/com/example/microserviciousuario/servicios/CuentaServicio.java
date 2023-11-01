@@ -20,7 +20,7 @@ public class CuentaServicio {
 
     // EL @Transactional que deben usar se importa desde spingframwork. El de jakarta no sirve.
     @Transactional( readOnly = true )
-    public List<Cuenta> traerTodas() {
+    public Iterable<Cuenta> traerTodas() {
         return cuentaRepositorio.findAll();
     }
 

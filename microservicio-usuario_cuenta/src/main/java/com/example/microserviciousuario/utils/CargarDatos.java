@@ -71,13 +71,5 @@ public class CargarDatos {
                 this.cuentaRepositorio.save(cuenta.get());
             }
         }
-
-//        System.out.println("Verificando si anda: ");
-//        Optional<Cuenta> cuenta2 = this.cuentaRepositorio.findByIdWithCuentas(1L);
-//        if(cuenta2.isPresent()){
-//            System.out.println("Existe");
-//            Cuenta cuen = cuenta2.get();
-//            System.out.println(cuen);
-//        }
     }
 }
