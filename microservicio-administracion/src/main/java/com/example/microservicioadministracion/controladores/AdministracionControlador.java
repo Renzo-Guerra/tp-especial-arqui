@@ -16,6 +16,9 @@ public class AdministracionControlador {
     //private final RolServicio rolServicio;
     private final AdministracionServicio administracionServicio;
 
+
+    // Inicio segunda parte
+
     /**
      * Lista todos los monopatin
      */
@@ -124,7 +127,6 @@ public class AdministracionControlador {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
-
 
     @GetMapping("/reportes/cantidadViajesMayorA/{cantidad}/año/{anio}")
     public ResponseEntity<?> reporteCantidadViajesPorAnio(@PathVariable Integer cantidad, @PathVariable Integer anio){
