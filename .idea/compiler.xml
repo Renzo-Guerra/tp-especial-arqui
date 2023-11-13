@@ -10,14 +10,15 @@
         <module name="microservicio-parada" />
         <module name="microservicio-monopatin_viaje" />
         <module name="microservicio-usuario_cuenta" />
+        <module name="microservicio-autenticacion" />
         <module name="microservicio-administracion" />
+        <module name="microservicio-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="microservicio-config" target="17" />
       <module name="microservicio-cuenta" target="1.8" />
       <module name="microservicio-eureka" target="17" />
-      <module name="microservicio-gateway" target="17" />
       <module name="microservicio-monopatin" target="1.8" />
       <module name="microservicio-usuario" target="1.8" />
       <module name="microservicio-viaje" target="17" />
@@ -26,6 +27,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="microservicio-administracion" options="-parameters" />
+      <module name="microservicio-autenticacion" options="-parameters" />
+      <module name="microservicio-gateway" options="-parameters" />
       <module name="microservicio-monopatin_viaje" options="-parameters" />
       <module name="microservicio-parada" options="-parameters" />
       <module name="microservicio-usuario_cuenta" options="-parameters" />
