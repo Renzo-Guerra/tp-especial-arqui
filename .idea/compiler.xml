@@ -14,7 +14,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="microservicio-config" target="17" />
       <module name="microservicio-cuenta" target="1.8" />
+      <module name="microservicio-eureka" target="17" />
+      <module name="microservicio-gateway" target="17" />
       <module name="microservicio-monopatin" target="1.8" />
       <module name="microservicio-usuario" target="1.8" />
       <module name="microservicio-viaje" target="17" />
