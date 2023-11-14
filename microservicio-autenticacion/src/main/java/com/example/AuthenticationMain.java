@@ -20,6 +20,6 @@ public class AuthenticationMain {
     @PostConstruct
     public void init() throws IOException {
         cargaDeDatos.cargarAuthoritiesDesdeCSV();
-//        cargaDeDatos.cargarUsuariosAuthDesdeCSV();
+        cargaDeDatos.cargarUsuariosAuthDesdeCSV();
     }
 }
