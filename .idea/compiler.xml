@@ -11,11 +11,12 @@
         <module name="microservicio-monopatin_viaje" />
         <module name="microservicio-usuario_cuenta" />
         <module name="microservicio-autenticacion" />
-        <module name="microservicio-administracion" />
         <module name="microservicio-gateway" />
+        <module name="microservicio-administracion" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="microservicio-apiGateway" target="17" />
       <module name="microservicio-config" target="17" />
       <module name="microservicio-cuenta" target="1.8" />
       <module name="microservicio-eureka" target="17" />
