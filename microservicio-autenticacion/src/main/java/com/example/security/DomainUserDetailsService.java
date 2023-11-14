@@ -1,7 +1,7 @@
 package com.example.security;
 
+import com.example.entity.AuthUser;
 import com.example.entity.Authority;
-import com.example.entity.User;
 import com.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class DomainUserDetailsService implements UserDetailsService {
-
     private final UserRepository userRepository;
 
     @Override
@@ -28,14 +27,13 @@ public class DomainUserDetailsService implements UserDetailsService {
                     .orElseThrow(() -> new UsernameNotFoundException("No existe el usuario con email " + email ));
     }
 
-
-    private org.springframework.security.core.userdetails.User createSpringSecurityUser(User user) {
-        List<GrantedAuthority> grantedAuthorities = user
+    private org.springframework.security.core.userdetails.User createSpringSecurityUser(AuthUser authUser) {
+        List<GrantedAuthority> grantedAuthorities = authUser
                 .getAuthorities()
                 .stream()
                 .map(Authority::getName)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(authUser.getEmail(), authUser.getPassword(), grantedAuthorities);
     }
 }

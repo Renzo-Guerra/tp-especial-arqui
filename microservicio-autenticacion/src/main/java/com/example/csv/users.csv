@@ -1,0 +1,3 @@
+nombre,apellido,email,password,authorities
+miguel,morales,miguel@gmail.com,12345,USER_ADMIN
+ramiro,torres,rama@gmail.com,54321,USER

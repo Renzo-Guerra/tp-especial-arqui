@@ -11,42 +11,27 @@ public class RouteConfig {
     @Bean
     public RouteLocator routes( RouteLocatorBuilder builder, AuthenticationFilter authFilter ) {
         return builder.routes()
-                .route("lll", r -> r.path("/api/authenticate" )
+                .route("autenticar", r -> r.path("/api/authenticate" )
                         .uri("http://localhost:8081"))
-                .route("auth-service", r -> r.path("/api/register" )
-                        .filters( f ->
-                                f.filter( authFilter.apply( new AuthenticationFilter.Config() ) )
-                        )
+                .route("registrar", r -> r.path("/api/register" )
                         .uri("http://localhost:8081"))
                 .route("administracion", r -> r.path( "/administracion/**" )
-                        .filters( f ->
-                                f.filter( authFilter.apply( new AuthenticationFilter.Config() ) )
-                        )
+                        .filters( f -> f.filter( authFilter.apply( new AuthenticationFilter.Config() ) ))
                         .uri("http://localhost:8001"))
                 .route("monopatin", r -> r.path("/monopatines/**")
-                        .filters(f ->
-                            f.filter(authFilter.apply(new AuthenticationFilter.Config()))
-                        )
+                        .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8002"))
                 .route("viaje", r -> r.path("/viajes/**")
-                        .filters(f ->
-                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
-                        )
+                        .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8002"))
                 .route("parada", r -> r.path("/paradas/**")
-                        .filters(f ->
-                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
-                        )
+                        .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8003"))
                 .route("usuario", r -> r.path("/usuarios/**")
-                        .filters(f ->
-                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
-                        )
+                        .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8004"))
                 .route("cuenta", r -> r.path("/cuentas/**")
-                        .filters(f ->
-                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
-                        )
+                        .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8004"))
                 .build();
     }

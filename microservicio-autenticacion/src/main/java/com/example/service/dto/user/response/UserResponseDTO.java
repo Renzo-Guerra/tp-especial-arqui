@@ -1,6 +1,6 @@
 package com.example.service.dto.user.response;
 
-import com.example.entity.User;
+import com.example.entity.AuthUser;
 import lombok.Data;
 
 @Data
@@ -11,11 +11,11 @@ public class UserResponseDTO {
     private final String apellido;
     private final String email;
 
-    public UserResponseDTO( User user ){
-        this.id = user.getId();
-        this.nombre = user.getNombre();
-        this.apellido = user.getApellido();
-        this.email = user.getEmail();
+    public UserResponseDTO( AuthUser authUser){
+        this.id = authUser.getId();
+        this.nombre = authUser.getNombre();
+        this.apellido = authUser.getApellido();
+        this.email = authUser.getEmail();
     }
 
 }

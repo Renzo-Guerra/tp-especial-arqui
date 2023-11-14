@@ -43,5 +43,4 @@ public class Usuario implements Serializable {
         this.cuentas.add(c);
     }
 
-
 }

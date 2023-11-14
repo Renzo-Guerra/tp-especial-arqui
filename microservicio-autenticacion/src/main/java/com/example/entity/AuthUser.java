@@ -4,7 +4,6 @@ import com.example.service.dto.user.request.UserRequestDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serial;
@@ -13,10 +12,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+
 @Data
 @NoArgsConstructor
-public class User implements Serializable {
+@Entity
+public class AuthUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @jakarta.persistence.Id
@@ -34,28 +34,16 @@ public class User implements Serializable {
 
     @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST )
     @JoinTable(
-            name = "rel_user__account",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id")
-    )
-    private Set<Account> cuentas;
-
-    @ManyToMany( fetch = FetchType.LAZY, cascade = CascadeType.PERSIST )
-    @JoinTable(
-            name = "rel_user__authority",
-            joinColumns = @JoinColumn(name = "user_id"),
+            name = "rel_auth_user_authority",
+            joinColumns = @JoinColumn(name = "auth_user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private Set<Authority> authorities;
 
-    public User(UserRequestDTO request) {
+    public AuthUser(UserRequestDTO request) {
         this.nombre = request.getNombre();
         this.apellido = request.getApellido();
         this.email = request.getEmail();
-    }
-
-    public void setCuentas( Collection<Account> cuentas ){
-        this.cuentas = new HashSet<>( cuentas );
     }
 
     public void setAuthorities( Collection<Authority> authorities ){
