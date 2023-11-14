@@ -1,20 +1,22 @@
 package com.example.microserviciomonopatin.controladores;
 
+import com.example.microserviciomonopatin.security.AuthorityConstants;
 import com.example.microserviciomonopatin.modelos.entidades.Monopatin;
 import com.example.microserviciomonopatin.servicios.MonopatinServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Data
 @RequestMapping("/monopatines")
 public class MonopatinControlador {
-
     private final MonopatinServicio monopatinServicio;
 
     @GetMapping("")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> traerTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerTodos());
