@@ -18,16 +18,36 @@ public class RouteConfig {
                                 f.filter( authFilter.apply( new AuthenticationFilter.Config() ) )
                         )
                         .uri("http://localhost:8081"))
-                .route("micro-a-product", r -> r.path( "/api/admin/products/**" )
+                .route("administracion", r -> r.path( "/administracion/**" )
                         .filters( f ->
                                 f.filter( authFilter.apply( new AuthenticationFilter.Config() ) )
                         )
-                        .uri("http://localhost:8082"))
-                .route("micro-a-product", r -> r.path("/api/products/**")
+                        .uri("http://localhost:8001"))
+                .route("monopatin", r -> r.path("/monopatines/**")
                         .filters(f ->
                             f.filter(authFilter.apply(new AuthenticationFilter.Config()))
                         )
-                        .uri("http://localhost:8082"))
+                        .uri("http://localhost:8002"))
+                .route("viaje", r -> r.path("/viajes/**")
+                        .filters(f ->
+                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
+                        )
+                        .uri("http://localhost:8002"))
+                .route("parada", r -> r.path("/paradas/**")
+                        .filters(f ->
+                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
+                        )
+                        .uri("http://localhost:8003"))
+                .route("usuario", r -> r.path("/usuarios/**")
+                        .filters(f ->
+                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
+                        )
+                        .uri("http://localhost:8004"))
+                .route("cuenta", r -> r.path("/cuentas/**")
+                        .filters(f ->
+                                f.filter(authFilter.apply(new AuthenticationFilter.Config()))
+                        )
+                        .uri("http://localhost:8004"))
                 .build();
     }
 
