@@ -1,10 +1,12 @@
 package com.example.microservicioparada.controladores;
 
 import com.example.microservicioparada.modelos.entidades.Parada;
+import com.example.microservicioparada.security.AuthorityConstants;
 import com.example.microservicioparada.servicios.ParadaServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +17,7 @@ public class ParadaControlador {
     private final ParadaServicio paradaServicio;
 
     @GetMapping("")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> traerTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.traerTodos());
@@ -24,6 +27,7 @@ public class ParadaControlador {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> traerPorId(@PathVariable("id") Long id_parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.traerPorId(id_parada));
@@ -33,6 +37,7 @@ public class ParadaControlador {
     }
 
     @GetMapping("/buscarParada/latitud/{latitud}/longitud/{longitud}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> buscarParadaPorCoordenadas(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.buscarParadaPorCoordenadas(latitud, longitud));
@@ -42,6 +47,7 @@ public class ParadaControlador {
     }
 
     @PostMapping("")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )" )
     public ResponseEntity<?> crearParada(@RequestBody Parada parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.crear(parada));
@@ -60,6 +66,7 @@ public class ParadaControlador {
     }*/
 
     @PutMapping("/{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )" )
     public ResponseEntity<?> editarParada(@PathVariable("id") Long id_parada, @RequestBody Parada nuevaInfo){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.editar(id_parada, nuevaInfo));
