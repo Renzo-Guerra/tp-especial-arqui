@@ -92,14 +92,16 @@ public class ParadaServicio {
         }
     }
 
-    public Parada buscarParadaPorCoordenadas(Double latitud, Double longitud) throws Exception {
+    public ResParadaDTO buscarParadaPorCoordenadas(Double latitud, Double longitud) throws Exception {
         if(latitud == null || longitud == null){ throw new Exception("Latitud o longitud son nulas!!!"); }
-        Optional<Parada> posible_parada = this.paradaRespositorio.traerPorCoordenadas(latitud, longitud);
+        Optional<ParadaMongo> posible_parada = this.paradaMongoRespositorio.traerPorCoordenadas(latitud, longitud);
 
         if(posible_parada.isEmpty()){
             throw new Exception("No existe parada con esas coordenadas!");
+        } else {
+            return new ResParadaDTO(posible_parada.get());
         }
 
-        return posible_parada.get();
+
     }
 }
