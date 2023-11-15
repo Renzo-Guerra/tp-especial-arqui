@@ -16,12 +16,12 @@ import java.util.Optional;
 @Service
 @Data
 public class ParadaServicio {
-    private final ParadaRespositorio paradaRespositorio;
+//    private final ParadaRespositorio paradaRespositorio;
     private final ParadaMongoRepositorio paradaMongoRespositorio;
 
     @Transactional(readOnly = true)
-    public Iterable<Parada> traerTodos() {
-        return paradaRespositorio.findAll();
+    public Iterable<ResParadaDTO> traerTodos() {
+        return paradaMongoRespositorio.findAll().stream().map(p -> new ResParadaDTO(p)).toList();
     }
 
    // @Transactional(readOnly = true)
@@ -31,14 +31,14 @@ public class ParadaServicio {
 
 
     @Transactional(readOnly = true)
-    public Parada traerPorId(Long id_parada) throws Exception {
-        Optional<Parada> parada = paradaRespositorio.findById(id_parada);
+    public ResParadaDTO traerPorId(String id_parada) throws Exception {
+        Optional<ParadaMongo> parada = paradaMongoRespositorio.findById(id_parada);
 
         if(parada.isEmpty()){
             throw new Exception("No existe una parada con id '" + id_parada + "'!");
         }
 
-        return parada.get();
+        return new ResParadaDTO(parada.get());
     }
 
     @Transactional
@@ -63,8 +63,13 @@ public class ParadaServicio {
 //    }
 
     @Transactional
-    public Parada editar(Long id_parada, Parada nuevaInfo) throws Exception {
-        Parada parada_editar = this.traerPorId(id_parada);
+    public ResParadaDTO editar(String id_parada, ReqParadaDTO nuevaInfo) throws Exception {
+        Optional<ParadaMongo> posible_parada = this.paradaMongoRespositorio.findById(id_parada);
+
+        if(posible_parada.isEmpty()){
+            throw new Exception("No existe una parada con id '" + id_parada + "'!");
+        }
+        ParadaMongo parada_editar = posible_parada.get();
 
         if(!Objects.equals(nuevaInfo.getLatitud(), parada_editar.getLatitud()) || !Objects.equals(nuevaInfo.getLongitud(), parada_editar.getLongitud())) {
             this.middlewareCoordenadaExiste(nuevaInfo.getLatitud(), nuevaInfo.getLongitud());
@@ -74,7 +79,7 @@ public class ParadaServicio {
         parada_editar.setLongitud(nuevaInfo.getLongitud());
         parada_editar.setIsHabilitada(nuevaInfo.getIsHabilitada());
 
-        return paradaRespositorio.save(parada_editar);
+        return new ResParadaDTO(paradaMongoRespositorio.save(parada_editar));
     }
 
 
