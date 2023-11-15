@@ -2,10 +2,12 @@ package com.example.microserviciousuario.controladores;
 
 import com.example.microserviciousuario.modelos.DTOS.UsuarioCreacionDTO;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
+import com.example.microserviciousuario.security.AuthorityConstants;
 import com.example.microserviciousuario.servicios.UsuarioServicio;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Month;
@@ -22,6 +24,7 @@ public class UsuarioControlador {
      * Devuelve todos los usuarios
      */
     @GetMapping("")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.traerTodos());
@@ -34,6 +37,7 @@ public class UsuarioControlador {
      * Devuelve un usuario por ID
      */
     @GetMapping("/{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerPorId(@PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.traerPorId(id));
@@ -46,6 +50,7 @@ public class UsuarioControlador {
      * Crea a un usuario
      */
     @PostMapping("")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> crearUsuario(@RequestBody UsuarioCreacionDTO usuario){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.crearUsuario(usuario));
@@ -58,6 +63,7 @@ public class UsuarioControlador {
      * Elimina a un usuario
      */
     @DeleteMapping("{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.eliminarUsuario(id));
@@ -70,6 +76,7 @@ public class UsuarioControlador {
      * Edita los datos de un usuario
      */
     @PutMapping("/{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> editarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.editarUsuario(id, usuario));
@@ -90,6 +97,7 @@ public class UsuarioControlador {
      * con respecto a la ubicacion actual del usuario
      */
     @GetMapping("/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}/rango/{rango}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud, @PathVariable Double rango){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.getMonopatinesCercanos(latitud, longitud, rango));
