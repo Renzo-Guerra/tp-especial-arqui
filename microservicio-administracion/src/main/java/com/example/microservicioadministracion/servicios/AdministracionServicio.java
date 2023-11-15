@@ -99,7 +99,7 @@ public class AdministracionServicio {
         return respuesta.getBody();
     }
 
-    public Parada agregarParada(Parada parada) throws Exception {
+    public ResParadaDTO agregarParada(ReqParadaDTO parada) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Parada> reqEntity = new HttpEntity<>(parada, headers);
         ResponseEntity<Parada> respuesta = restTemplate.exchange(

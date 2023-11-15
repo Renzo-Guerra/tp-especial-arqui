@@ -40,11 +40,12 @@ public class ParadaServicio {
     }
 
     @Transactional
-    public Parada crear(Parada parada) throws Exception {
+    public ResParadaDTO crear(ReqParadaDTO parada) throws Exception {
         // Validamos que la nueva parada no tenga las mismas coordenadas que alguna ya existente
         this.middlewareCoordenadaExiste(parada.getLatitud(), parada.getLongitud());
 
-        return paradaRespositorio.save(parada);
+        Parada paradaCreada = paradaRespositorio.save(parada);
+        return new ResParadaDTO(paradaCreada);
     }
 
 //    @Transactional

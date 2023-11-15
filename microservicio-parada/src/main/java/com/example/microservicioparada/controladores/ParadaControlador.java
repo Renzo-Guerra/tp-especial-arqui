@@ -48,7 +48,7 @@ public class ParadaControlador {
 
     @PostMapping("")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )" )
-    public ResponseEntity<?> crearParada(@RequestBody Parada parada){
+    public ResponseEntity<?> crearParada(@RequestBody ReqParadaDTO parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.crear(parada));
         }catch (Exception e){
