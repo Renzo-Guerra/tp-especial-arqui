@@ -16,7 +16,7 @@ public class MonopatinControlador {
     private final MonopatinServicio monopatinServicio;
 
     @GetMapping("")
-    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerTodos());
@@ -26,6 +26,7 @@ public class MonopatinControlador {
     }
 
     @GetMapping("/latitud/{latitud}/longitud/{longitud}/rango/{rango}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud, @PathVariable Double rango){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.getMonopatinesCercanos(latitud, longitud, rango));
@@ -35,6 +36,7 @@ public class MonopatinControlador {
     }
 
     @GetMapping("/kilometros")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerOrdenadosPorKilometros(@RequestParam(name = "orden", required = false) String orden){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorKilometros(orden));
@@ -44,6 +46,7 @@ public class MonopatinControlador {
     }
 
     @GetMapping("/tiempos/conPausas")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerOrdenadosPorTiempoConPausas(@RequestParam(name = "orden", required = false) String orden){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorTiempoConPausas(orden));
@@ -53,6 +56,7 @@ public class MonopatinControlador {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerPorId(@PathVariable("id") Long id_monopatin){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerPorId(id_monopatin));
@@ -62,6 +66,7 @@ public class MonopatinControlador {
     }
 
     @PostMapping("")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> crearMonopatin(@RequestBody Monopatin monopatin){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.crear(monopatin));
@@ -82,6 +87,7 @@ public class MonopatinControlador {
     */
 
     @PutMapping("/{id}")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> editarMonopatin(@PathVariable("id") Long idMonopatin, @RequestBody Monopatin nuevaInfo){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.editar(idMonopatin, nuevaInfo));

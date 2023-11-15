@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ParadaControlador {
     private final ParadaServicio paradaServicio;
+    // FALTA PONER MULTIPLES AUTORIDADES
+    // @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
 
     @GetMapping("")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
