@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ParadaControlador {
     private final ParadaServicio paradaServicio;
-    // FALTA PONER MULTIPLES AUTORIDADES
-    // @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
 
     @GetMapping("")
-    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.traerTodos());
@@ -29,7 +27,7 @@ public class ParadaControlador {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerPorId(@PathVariable("id") Long id_parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.traerPorId(id_parada));
@@ -39,7 +37,7 @@ public class ParadaControlador {
     }
 
     @GetMapping("/buscarParada/latitud/{latitud}/longitud/{longitud}")
-    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" )" )
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> buscarParadaPorCoordenadas(@PathVariable("latitud") Double latitud, @PathVariable("longitud") Double longitud){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.buscarParadaPorCoordenadas(latitud, longitud));
