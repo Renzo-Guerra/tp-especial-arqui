@@ -1,12 +1,13 @@
 package com.example.microservicioparada.servicios;
 
 import com.example.microservicioparada.modelos.entidades.Parada;
+import com.example.microservicioparada.modelos.entidades.ParadaMongo;
 import com.example.microservicioparada.repositorios.ParadaRespositorio;
+import com.example.microservicioparada.repositorios.ParadaMongoRepositorio;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,13 +15,20 @@ import java.util.Optional;
 @Data
 public class ParadaServicio {
     private final ParadaRespositorio paradaRespositorio;
+    //private final ParadaMongoRepositorio paradaMongoRespositorio;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Iterable<Parada> traerTodos() {
         return paradaRespositorio.findAll();
     }
 
-    @Transactional
+   // @Transactional(readOnly = true)
+   // public Iterable<ParadaMongo> traerTodosMongo() {
+        //return paradaMongoRespositorio.findAll();
+   // }
+
+
+    @Transactional(readOnly = true)
     public Parada traerPorId(Long id_parada) throws Exception {
         Optional<Parada> parada = paradaRespositorio.findById(id_parada);
 

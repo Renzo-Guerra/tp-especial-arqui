@@ -1,0 +1,15 @@
+
+version: '3.8'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:5.0.0
+    restart: on-failure
+    command:
+      - --auth
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: prueba
+    ports:
+      - "127.0.0.1:27017:27017"
