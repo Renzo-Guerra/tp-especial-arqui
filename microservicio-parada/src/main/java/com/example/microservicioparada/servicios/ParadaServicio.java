@@ -85,7 +85,7 @@ public class ParadaServicio {
 
     // MIDDLEWARE Verifica que no exista una parada con la misma latitud y longitud
     private void middlewareCoordenadaExiste(Double latitud, Double longitud) throws Exception {
-        Optional<Parada> parada = this.paradaRespositorio.traerPorCoordenadas(latitud, longitud);
+        Optional<ParadaMongo> parada = this.paradaMongoRespositorio.traerPorCoordenadas(latitud, longitud);
 
         if(parada.isPresent()){
             throw new Exception("Ya existe la parada '" + parada.get().getId_parada() + "' con esa latitud y longitud!");
