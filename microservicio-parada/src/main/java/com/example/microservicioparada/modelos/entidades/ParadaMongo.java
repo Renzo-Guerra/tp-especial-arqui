@@ -15,4 +15,10 @@ public class ParadaMongo {
     private Double latitud;
     private Double longitud;
     private Boolean isHabilitada;
+
+    public ParadaMongo(Double latitud, Double longitud, Boolean isHabilitada) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.isHabilitada = isHabilitada;
+    }
 }

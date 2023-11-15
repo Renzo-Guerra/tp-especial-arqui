@@ -1,5 +1,6 @@
 package com.example.microservicioparada.controladores;
 
+import com.example.microservicioparada.modelos.DTOs.request.ReqParadaDTO;
 import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.security.AuthorityConstants;
 import com.example.microservicioparada.servicios.ParadaServicio;

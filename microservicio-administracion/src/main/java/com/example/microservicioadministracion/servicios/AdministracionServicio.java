@@ -3,6 +3,8 @@ package com.example.microservicioadministracion.servicios;
 import com.example.microservicioadministracion.modelos.DTOS.MonopatinKilometrajeDTO;
 import com.example.microservicioadministracion.modelos.DTOS.ReporteMonopatinesXViaje;
 import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO;
+import com.example.microservicioadministracion.modelos.DTOS.request.ReqParadaDTO;
+import com.example.microservicioadministracion.modelos.DTOS.response.ResParadaDTO;
 import com.example.microservicioadministracion.modelos.entidades.*;
 import com.example.microservicioadministracion.repositorios.TarifaRespositorio;
 import com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionamiento;
@@ -101,8 +103,8 @@ public class AdministracionServicio {
 
     public ResParadaDTO agregarParada(ReqParadaDTO parada) throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Parada> reqEntity = new HttpEntity<>(parada, headers);
-        ResponseEntity<Parada> respuesta = restTemplate.exchange(
+        HttpEntity<ReqParadaDTO> reqEntity = new HttpEntity<>(parada, headers);
+        ResponseEntity<ResParadaDTO> respuesta = restTemplate.exchange(
                 "http://localhost:8003/paradas",
                 HttpMethod.POST,
                 reqEntity,

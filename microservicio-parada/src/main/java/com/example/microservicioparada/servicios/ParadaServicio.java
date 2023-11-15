@@ -1,5 +1,7 @@
 package com.example.microservicioparada.servicios;
 
+import com.example.microservicioparada.modelos.DTOs.request.ReqParadaDTO;
+import com.example.microservicioparada.modelos.DTOs.response.ResParadaDTO;
 import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.modelos.entidades.ParadaMongo;
 import com.example.microservicioparada.repositorios.ParadaRespositorio;
@@ -15,7 +17,7 @@ import java.util.Optional;
 @Data
 public class ParadaServicio {
     private final ParadaRespositorio paradaRespositorio;
-    // private final ParadaMongoRepositorio paradaMongoRespositorio;
+    private final ParadaMongoRepositorio paradaMongoRespositorio;
 
     @Transactional(readOnly = true)
     public Iterable<Parada> traerTodos() {
@@ -44,7 +46,11 @@ public class ParadaServicio {
         // Validamos que la nueva parada no tenga las mismas coordenadas que alguna ya existente
         this.middlewareCoordenadaExiste(parada.getLatitud(), parada.getLongitud());
 
-        Parada paradaCreada = paradaRespositorio.save(parada);
+        ParadaMongo paradaCreada = paradaMongoRespositorio.save(
+                new ParadaMongo(parada.getLatitud(),
+                        parada.getLongitud(),
+                        parada.getIsHabilitada()));
+
         return new ResParadaDTO(paradaCreada);
     }
 

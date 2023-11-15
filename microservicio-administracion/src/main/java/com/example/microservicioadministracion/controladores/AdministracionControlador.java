@@ -1,5 +1,6 @@
 package com.example.microservicioadministracion.controladores;
 
+import com.example.microservicioadministracion.modelos.DTOS.request.ReqParadaDTO;
 import com.example.microservicioadministracion.modelos.entidades.Monopatin;
 import com.example.microservicioadministracion.modelos.entidades.Parada;
 import com.example.microservicioadministracion.modelos.DTOS.TarifaCrearTarifaDTO;
@@ -60,7 +61,7 @@ public class AdministracionControlador {
 //    }
 
     @PostMapping("/paradas")
-    public ResponseEntity<?> agregarParada(@RequestBody Parada parada){
+    public ResponseEntity<?> agregarParada(@RequestBody ReqParadaDTO parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarParada(parada));
         } catch (Exception e) {
