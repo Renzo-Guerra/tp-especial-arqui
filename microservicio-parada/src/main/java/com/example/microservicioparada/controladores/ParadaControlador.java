@@ -68,7 +68,7 @@ public class ParadaControlador {
 
     @PutMapping("/{id}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\" )" )
-    public ResponseEntity<?> editarParada(@PathVariable("id") Long id_parada, @RequestBody Parada nuevaInfo){
+    public ResponseEntity<?> editarParada(@PathVariable("id") String id_parada, @RequestBody ReqParadaDTO nuevaInfo){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.editar(id_parada, nuevaInfo));
         }catch (Exception e){
