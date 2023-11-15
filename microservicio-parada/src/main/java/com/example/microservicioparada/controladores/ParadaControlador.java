@@ -29,7 +29,7 @@ public class ParadaControlador {
 
     @GetMapping("/{id}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> traerPorId(@PathVariable("id") Long id_parada){
+    public ResponseEntity<?> traerPorId(@PathVariable("id") String id_parada){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.traerPorId(id_parada));
         }catch (Exception e){
