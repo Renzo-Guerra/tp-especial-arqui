@@ -115,20 +115,20 @@ public class AdministracionServicio {
         return respuesta.getBody();
     }
 
-    public Parada cambiarDisponibilidad(Long id) {
+    public ResParadaDTO cambiarDisponibilidad(String id) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
-        ResponseEntity<Parada> respuesta = restTemplate.exchange(
+        ResponseEntity<ResParadaDTO> respuesta = restTemplate.exchange(
                 "http://localhost:8003/paradas/" + id,
                 HttpMethod.GET,
                 reqEntity,
                 new ParameterizedTypeReference<>() {}
         );
-        Parada paradaEditarEstado = respuesta.getBody();
+        ResParadaDTO paradaEditarEstado = respuesta.getBody();
         paradaEditarEstado.setIsHabilitada(!paradaEditarEstado.getIsHabilitada());
 
-        HttpEntity<Parada> reqEntity2 = new HttpEntity<>(paradaEditarEstado, headers);
-        ResponseEntity<Parada> respuesta2 = restTemplate.exchange(
+        HttpEntity<ResParadaDTO> reqEntity2 = new HttpEntity<>(paradaEditarEstado, headers);
+        ResponseEntity<ResParadaDTO> respuesta2 = restTemplate.exchange(
                 "http://localhost:8003/paradas/" + id,
                 HttpMethod.PUT,
                 reqEntity2,
@@ -140,10 +140,10 @@ public class AdministracionServicio {
 
     }
 
-    public List<Parada> traerTodasParadas() throws Exception {
+    public List<ResParadaDTO> traerTodasParadas() throws Exception {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
-        ResponseEntity<List<Parada>> respuesta = restTemplate.exchange(
+        ResponseEntity<List<ResParadaDTO>> respuesta = restTemplate.exchange(
             "http://localhost:8003/paradas",
             HttpMethod.GET,
             reqEntity,

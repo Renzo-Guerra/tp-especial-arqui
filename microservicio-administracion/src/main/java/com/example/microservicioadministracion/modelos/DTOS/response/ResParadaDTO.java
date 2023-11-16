@@ -1,6 +1,7 @@
 package com.example.microservicioadministracion.modelos.DTOS.response;
 
-import com.example.microservicioparada.modelos.entidades.ParadaMongo;
+
+import com.example.microservicioadministracion.modelos.DTOS.ParadaMongoDTO;
 import lombok.Data;
 
 @Data
@@ -17,7 +18,7 @@ public class ResParadaDTO {
         this.isHabilitada = isHabilitada;
     }
 
-    public ResParadaDTO(ParadaMongo parada){
+    public ResParadaDTO(ParadaMongoDTO parada){
         this.id = parada.getId_parada();
         this.latitud = parada.getLatitud();
         this.longitud = parada.getLongitud();

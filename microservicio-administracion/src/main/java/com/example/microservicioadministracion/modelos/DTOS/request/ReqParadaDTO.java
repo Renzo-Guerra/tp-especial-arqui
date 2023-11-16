@@ -1,6 +1,6 @@
 package com.example.microservicioadministracion.modelos.DTOS.request;
 
-import com.example.microservicioparada.modelos.entidades.ParadaMongo;
+import com.example.microservicioadministracion.modelos.DTOS.ParadaMongoDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +17,7 @@ public class ReqParadaDTO {
         this.isHabilitada = isHabilitada;
     }
 
-    public ReqParadaDTO(ParadaMongo parada){
+    public ReqParadaDTO(ParadaMongoDTO parada){
         this.latitud = parada.getLatitud();
         this.longitud = parada.getLongitud();
         this.isHabilitada = parada.getIsHabilitada();

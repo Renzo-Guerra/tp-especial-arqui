@@ -70,7 +70,7 @@ public class AdministracionControlador {
     }
 
     @PutMapping("/paradas/{id}/cambiarDisponibilidad")
-    public ResponseEntity<?> cambiarDisponibilidad(@PathVariable Long id){
+    public ResponseEntity<?> cambiarDisponibilidad(@PathVariable String id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarDisponibilidad(id));
         } catch (Exception e) {
