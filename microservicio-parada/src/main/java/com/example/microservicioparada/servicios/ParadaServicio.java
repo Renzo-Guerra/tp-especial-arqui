@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class ParadaServicio {
     private final ParadaMongoRepositorio paradaMongoRespositorio;
 
     @Transactional(readOnly = true)
-    public Iterable<ResParadaDTO> traerTodos() {
+    public List<ResParadaDTO> traerTodos() {
         return paradaMongoRespositorio.findAll().stream().map(p -> new ResParadaDTO(p)).toList();
     }
 

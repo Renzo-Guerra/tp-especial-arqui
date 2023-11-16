@@ -149,11 +149,8 @@ public class AdministracionServicio {
             reqEntity,
             new ParameterizedTypeReference<>() {
             });
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
         return respuesta.getBody();
     }
-
 
     public Iterable<Tarifa> traerTodasTarifas() throws Exception {
         return tarifaRespositorio.findAll();
