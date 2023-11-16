@@ -2,8 +2,8 @@ package com.example.microserviciousuario.servicios;
 
 import com.example.microserviciousuario.modelos.DTOS.TransferenciaCuentaDTO;
 import com.example.microserviciousuario.modelos.DTOS.UsuarioCreacionDTO;
+import com.example.microserviciousuario.modelos.DTOS.response.ResParadaDTO;
 import com.example.microserviciousuario.modelos.entidades.Monopatin;
-import com.example.microserviciousuario.modelos.entidades.Parada;
 import com.example.microserviciousuario.modelos.entidades.Usuario;
 import com.example.microserviciousuario.modelos.entidades.Viaje;
 import com.example.microserviciousuario.repositorios.UsuarioRepositorio;
@@ -130,7 +130,7 @@ public class UsuarioServicio {
         Double longitud = monopatin.getLongitud();
         //verificamos si la ubicacion del monopatin coincide con la ubicacion de alguna parada
         HttpEntity<Void> reqEntity3 = new HttpEntity<>(headers);
-        ResponseEntity<Optional<Parada>> response3 = restTemplate.exchange(
+        ResponseEntity<ResParadaDTO> response3 = restTemplate.exchange(
                 "http://localhost:8002/paradas/buscarParadaHabilitada/latitud/" + latitud + "/longitud/" + longitud,
                 HttpMethod.GET,
                 reqEntity3,
@@ -138,12 +138,9 @@ public class UsuarioServicio {
         );
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Optional<Parada> parada = response3.getBody();
-        if(parada.isEmpty()) {
-            throw new Exception("En la ubicacion que intenta dejar el monopatin, no existe una parada.");
-        }
+        ResParadaDTO parada = response3.getBody();
 
-        if(!parada.get().getIsHabilitada()) {
+        if(!parada.getIsHabilitada()) {
             throw new Exception("La parada en la que intenta dejar el monopatin, no esta habilitada.");
         }
 
