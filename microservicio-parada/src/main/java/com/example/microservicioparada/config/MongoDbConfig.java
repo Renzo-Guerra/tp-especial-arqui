@@ -17,7 +17,7 @@ public class MongoDbConfig {
 
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb://root:root@localhost:27017/prueba?authSource=admin");
+        ConnectionString connectionString = new ConnectionString("mongodb://root:root@localhost:27017/parada?authSource=admin");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
@@ -27,6 +27,6 @@ public class MongoDbConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongo(), "prueba");
+        return new MongoTemplate(mongo(), "parada");
     }
 }
