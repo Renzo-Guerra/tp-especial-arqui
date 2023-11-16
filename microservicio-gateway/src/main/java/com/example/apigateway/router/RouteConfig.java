@@ -26,7 +26,7 @@ public class RouteConfig {
                         .uri("http://localhost:8002"))
                 .route("parada", r -> r.path("/paradas/**")
                         .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
-                        .uri("http://localhost:27017"))
+                        .uri("http://localhost:8003"))
                 .route("usuario", r -> r.path("/usuarios/**")
                         .filters(f -> f.filter(authFilter.apply(new AuthenticationFilter.Config())))
                         .uri("http://localhost:8004"))
