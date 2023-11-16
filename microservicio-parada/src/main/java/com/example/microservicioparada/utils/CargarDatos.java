@@ -1,6 +1,5 @@
 package com.example.microservicioparada.utils;
 
-import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.modelos.entidades.ParadaMongo;
 import com.example.microservicioparada.repositorios.ParadaMongoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +31,3 @@ public class CargarDatos {
         }
     }
 }
-/**
- *  The bean 'paradaMongoRepositorio',
- *  defined in com.example.microservicioparada.repositorios.ParadaMongoRepositorio
- *  defined in @EnableMongoRepositories declared on MicroservicioParadaApplication,
- *  could not be registered.
- *  A bean with that name has already been
- *  defined in com.example.microservicioparada.repositorios.ParadaMongoRepositorio
- *  defined in @EnableMongoRepositories declared on MongoDbConfig
- *  and overriding is disabled.
- */
