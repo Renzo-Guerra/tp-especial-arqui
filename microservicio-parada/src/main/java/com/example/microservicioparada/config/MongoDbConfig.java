@@ -30,3 +30,12 @@ public class MongoDbConfig {
         return new MongoTemplate(mongo(), "parada");
     }
 }
+
+/**
+ * The bean 'paradaMongoRepositorio',
+ * defined in com.example.microservicioparada.repositorios.ParadaMongoRepositorio
+ * defined in @EnableMongoRepositories declared on MicroservicioParadaApplication,
+ * could not be registered. A bean with that name has already been
+ * defined in com.example.microservicioparada.repositorios.ParadaMongoRepositorio
+ * defined in @EnableMongoRepositories declared on MongoDbConfig and overriding is disabled.
+ */

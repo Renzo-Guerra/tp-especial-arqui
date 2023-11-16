@@ -2,9 +2,7 @@ package com.example.microservicioparada.servicios;
 
 import com.example.microservicioparada.modelos.DTOs.request.ReqParadaDTO;
 import com.example.microservicioparada.modelos.DTOs.response.ResParadaDTO;
-import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.modelos.entidades.ParadaMongo;
-import com.example.microservicioparada.repositorios.ParadaRespositorio;
 import com.example.microservicioparada.repositorios.ParadaMongoRepositorio;
 import lombok.Data;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,6 @@ import java.util.Optional;
 @Service
 @Data
 public class ParadaServicio {
-//    private final ParadaRespositorio paradaRespositorio;
     private final ParadaMongoRepositorio paradaMongoRespositorio;
 
     @Transactional(readOnly = true)
