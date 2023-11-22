@@ -172,8 +172,9 @@ public class UsuarioServicio {
         return viaje;
     }
 
-    public Iterable<Monopatin> getMonopatinesCercanos(Double latitud, Double longitud, Double rango) {
+    public Iterable<Monopatin> getMonopatinesCercanos(Double latitud, Double longitud, Double rango, String token) {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<Iterable<Monopatin>> response = restTemplate.exchange(
                 "http://localhost:8002/monopatines/latitud/" + latitud + "/longitud/" + longitud + "/rango/" + rango,

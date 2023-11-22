@@ -35,10 +35,8 @@ public class HttpConfig {
         http.addFilterBefore( new JwtFilter( jwtParser ), UsernamePasswordAuthenticationFilter.class);
         http.csrf( AbstractHttpConfigurer::disable )
                 .authorizeRequests()
-                    .requestMatchers( "cuentas" ).hasAuthority( AuthorityConstants.ADMIN )
-                    .requestMatchers( "cuentas" ).hasAuthority( AuthorityConstants.USER )
-                    .requestMatchers( "usuarios" ).hasAuthority( AuthorityConstants.ADMIN )
-                    .requestMatchers( "usuarios" ).hasAuthority( AuthorityConstants.USER )
+                    .requestMatchers( "cuentas" ).hasAnyAuthority( AuthorityConstants.ADMIN, AuthorityConstants.USER )
+                    .requestMatchers( "usuarios" ).hasAnyAuthority( AuthorityConstants.ADMIN, AuthorityConstants.USER )
                     .anyRequest().authenticated();
         http.anonymous( AbstractHttpConfigurer::disable )
                 .sessionManagement( s -> s.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) );

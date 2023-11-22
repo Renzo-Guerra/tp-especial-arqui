@@ -98,9 +98,9 @@ public class UsuarioControlador {
      */
     @GetMapping("/monopatinesCercanos/latitud/{latitud}/longitud/{longitud}/rango/{rango}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud, @PathVariable Double rango){
+    public ResponseEntity<?> getMonopatinesCercanos(@PathVariable Double latitud, @PathVariable Double longitud, @PathVariable Double rango, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.getMonopatinesCercanos(latitud, longitud, rango));
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioServicio.getMonopatinesCercanos(latitud, longitud, rango, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
