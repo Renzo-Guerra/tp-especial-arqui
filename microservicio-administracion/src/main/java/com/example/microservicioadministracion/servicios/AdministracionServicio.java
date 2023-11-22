@@ -33,23 +33,25 @@ public class AdministracionServicio {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<Monopatin> traerTodosMonopatin() throws Exception {
+    public List<Monopatin> traerTodosMonopatin(String token) throws Exception {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<List<Monopatin>> respuesta = monopatinClienteRest.exchange(
                 "http://localhost:8002/monopatines",
                 HttpMethod.GET,
                 reqEntity,
-                new ParameterizedTypeReference<List<Monopatin>>() {
+                new ParameterizedTypeReference<>() {
         });
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return respuesta.getBody();
     }
 
-    public Monopatin editarEstadoMonopatin(Long id_monopatin, String estado) throws Exception {
+    public Monopatin editarEstadoMonopatin(Long id_monopatin, String estado, String token) throws Exception {
         // Traemos el monopatin por id
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<Monopatin> respuesta = monopatinClienteRest.exchange(
                 "http://localhost:8002/monopatines/" + id_monopatin,
@@ -73,8 +75,9 @@ public class AdministracionServicio {
         return respuesta2.getBody();
     }
 
-    public Monopatin agregarMonopatin(Monopatin monopatin) {
+    public Monopatin agregarMonopatin(Monopatin monopatin, String token) {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Monopatin> reqEntity = new HttpEntity<>(monopatin, headers);
         ResponseEntity<Monopatin> respuesta = monopatinClienteRest.exchange(
                 "http://localhost:8002/monopatines",
@@ -101,8 +104,9 @@ public class AdministracionServicio {
         return respuesta.getBody();
     }
 
-    public ResParadaDTO agregarParada(ReqParadaDTO parada) throws Exception {
+    public ResParadaDTO agregarParada(ReqParadaDTO parada, String token) throws Exception {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<ReqParadaDTO> reqEntity = new HttpEntity<>(parada, headers);
         ResponseEntity<ResParadaDTO> respuesta = restTemplate.exchange(
                 "http://localhost:8003/paradas",
@@ -115,8 +119,9 @@ public class AdministracionServicio {
         return respuesta.getBody();
     }
 
-    public ResParadaDTO cambiarDisponibilidad(String id) {
+    public ResParadaDTO cambiarDisponibilidad(String id, String token) {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<ResParadaDTO> respuesta = restTemplate.exchange(
                 "http://localhost:8003/paradas/" + id,
@@ -140,8 +145,9 @@ public class AdministracionServicio {
 
     }
 
-    public List<ResParadaDTO> traerTodasParadas() throws Exception {
+    public List<ResParadaDTO> traerTodasParadas(String token) throws Exception {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<List<ResParadaDTO>> respuesta = restTemplate.exchange(
             "http://localhost:8003/paradas",
@@ -176,13 +182,14 @@ public class AdministracionServicio {
         return t;
     }
 
-    public Cuenta cambiarEstadoCuenta(Long id_cuenta, String habilitada) throws Exception {
+    public Cuenta cambiarEstadoCuenta(Long id_cuenta, String habilitada, String token) throws Exception {
         habilitada = habilitada.toLowerCase();
         if(!habilitada.equals("true") && !habilitada.equals("false")){
             throw new Exception("Estado de cuenta invalido. Parametros validos: ('true' | 'false') !");
         }
 
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<Cuenta> respuesta = restTemplate.exchange(
                 "http://localhost:8004/cuentas/" + id_cuenta,
@@ -213,8 +220,9 @@ public class AdministracionServicio {
         return respuesta2.getBody();
     }
 
-    public List<ReporteMonopatinesXViaje> reporteCantidadViajesPorAnio(Integer cantidad, Integer anio) throws Exception {
+    public List<ReporteMonopatinesXViaje> reporteCantidadViajesPorAnio(Integer cantidad, Integer anio, String token) throws Exception {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<List<ReporteMonopatinesXViaje>> respuesta = restTemplate.exchange(
                 "http://localhost:8002/viajes/cantidadViajesMayorA/" + cantidad + "/año/ "+ anio,
@@ -227,24 +235,24 @@ public class AdministracionServicio {
         return respuesta.getBody();
     }
 
-    public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden) throws Exception {
+    public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden, String token) throws Exception {
         String url = "http://localhost:8002/monopatines/tiempos";
-        return (List<MonopatinKilometrajeDTO>) this.traerTiemposMonopatines(url, orden);
+        return (List<MonopatinKilometrajeDTO>) this.traerTiemposMonopatines(url, orden, token);
     }
 
-    public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposConPausas(String orden) throws Exception {
+    public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposConPausas(String orden, String token) throws Exception {
         String url = "http://localhost:8002/monopatines/tiempos/conPausas";
-        return (List<MonopatinTiempoFuncionamiento>) this.traerTiemposMonopatines(url, orden);
+        return (List<MonopatinTiempoFuncionamiento>) this.traerTiemposMonopatines(url, orden, token);
     }
 
-    public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposSinPausas(String orden) throws Exception {
+    public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposSinPausas(String orden, String token) throws Exception {
         String url = "http://localhost:8002/monopatines/tiempos/sinPausas";
-        return (List<MonopatinTiempoFuncionamiento>) this.traerTiemposMonopatines(url, orden);
+        return (List<MonopatinTiempoFuncionamiento>) this.traerTiemposMonopatines(url, orden, token);
     }
 
     // Funcion auxiliar privada que permite asignar el orden a la url pasada por paramatro.
     // Además, ejecuta el request a la url y devuelve la lista de objetos obtenidos.
-    private List<?> traerTiemposMonopatines(String url_actual, String orden) throws Exception {
+    private List<?> traerTiemposMonopatines(String url_actual, String orden, String token) throws Exception {
         if (orden != null &&
                 (!orden.equalsIgnoreCase("ASC") &&
                         !orden.equalsIgnoreCase("DESC"))) {
@@ -255,6 +263,7 @@ public class AdministracionServicio {
         url_actual += ((orden != null) && orden.equals("DESC"))? "?orden=desc" : "?orden=asc";
 
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<List<?>> response = restTemplate.exchange(
                 url_actual,
@@ -267,8 +276,9 @@ public class AdministracionServicio {
         return response.getBody();
     }
 
-    public ReporteFacturacionDTO facturacionViajesDesdeHastaAnio(Integer mes1, Integer mes2, Integer anio) throws Exception {
+    public ReporteFacturacionDTO facturacionViajesDesdeHastaAnio(Integer mes1, Integer mes2, Integer anio, String token) throws Exception {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<ReporteFacturacionDTO> respuesta = restTemplate.exchange(
                 "http://localhost:8002/viajes/facturacionViajesDesde/" + mes1 + "/hasta/"+ mes2 + "/año/" + anio,

@@ -27,9 +27,9 @@ public class AdministracionControlador {
      */
     @GetMapping("/monopatines")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> traerTodosMonopatin(){
+    public ResponseEntity<?> traerTodosMonopatin(@RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodosMonopatin());
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodosMonopatin(token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -38,9 +38,9 @@ public class AdministracionControlador {
 
     @PutMapping("/monopatines/{id}/estado/{estado}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> cambiarEstado(@PathVariable Long id, @PathVariable String estado){
+    public ResponseEntity<?> cambiarEstado(@PathVariable Long id, @PathVariable String estado, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.editarEstadoMonopatin(id, estado));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.editarEstadoMonopatin(id, estado, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -48,9 +48,9 @@ public class AdministracionControlador {
 
     @PostMapping("/monopatines")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> agregarMonopatin(@RequestBody Monopatin monopatin){
+    public ResponseEntity<?> agregarMonopatin(@RequestBody Monopatin monopatin, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarMonopatin(monopatin));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarMonopatin(monopatin, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -67,9 +67,9 @@ public class AdministracionControlador {
 
     @PostMapping("/paradas")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> agregarParada(@RequestBody ReqParadaDTO parada){
+    public ResponseEntity<?> agregarParada(@RequestBody ReqParadaDTO parada, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarParada(parada));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.agregarParada(parada, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -77,9 +77,9 @@ public class AdministracionControlador {
 
     @PutMapping("/paradas/{id}/cambiarDisponibilidad")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> cambiarDisponibilidad(@PathVariable String id){
+    public ResponseEntity<?> cambiarDisponibilidad(@PathVariable String id, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarDisponibilidad(id));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarDisponibilidad(id, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -87,9 +87,9 @@ public class AdministracionControlador {
 
     @GetMapping("/paradas")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> traerTodasParadas(){
+    public ResponseEntity<?> traerTodasParadas(@RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasParadas());
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerTodasParadas(token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -133,29 +133,29 @@ public class AdministracionControlador {
 
     @PutMapping("/cuentas/{id_cuenta}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> cambiarEstadoCuenta(@PathVariable Long id_cuenta, @RequestParam(name = "habilitada") String habilitada){
+    public ResponseEntity<?> cambiarEstadoCuenta(@PathVariable Long id_cuenta, @RequestParam(name = "habilitada") String habilitada, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarEstadoCuenta(id_cuenta, habilitada));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.cambiarEstadoCuenta(id_cuenta, habilitada, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
-    @GetMapping("/reportes/cantidadViajesMayorA/{cantidad}/año/{anio}")
+    @GetMapping("/reportes/cantidadViajesMayorA/{cantidad}/anio/{anio}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> reporteCantidadViajesPorAnio(@PathVariable Integer cantidad, @PathVariable Integer anio){
+    public ResponseEntity<?> reporteCantidadViajesPorAnio(@PathVariable Integer cantidad, @PathVariable Integer anio, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteCantidadViajesPorAnio(cantidad, anio));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteCantidadViajesPorAnio(cantidad, anio, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
     }
 
-    @GetMapping("/reportes/facturacionViajesDesde/{mes1}/hasta/{mes2}/año/{anio}")
+    @GetMapping("/reportes/facturacionViajesDesde/{mes1}/hasta/{mes2}/anio/{anio}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> reporteFacturacionViajesRangoMesesPorAnio(@PathVariable Integer mes1, @PathVariable Integer mes2, @PathVariable Integer anio){
+    public ResponseEntity<?> reporteFacturacionViajesRangoMesesPorAnio(@PathVariable Integer mes1, @PathVariable Integer mes2, @PathVariable Integer anio, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.facturacionViajesDesdeHastaAnio(mes1, mes2, anio));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.facturacionViajesDesdeHastaAnio(mes1, mes2, anio, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -163,9 +163,9 @@ public class AdministracionControlador {
 
     @GetMapping("/reportes/monopatines/kilometros")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> reporteMonopatinesOrderByKilometros(@RequestParam(name = "orden", required = false) String orden){
+    public ResponseEntity<?> reporteMonopatinesOrderByKilometros(@RequestParam(name = "orden", required = false) String orden, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(orden));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesOrderByKilometros(orden, token));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -173,9 +173,9 @@ public class AdministracionControlador {
 
     @GetMapping("/reportes/monopatines/tiempos/conPausas")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> reporteMonopatinesTiemposConPausas(@RequestParam(name = "orden", required = false) String orden){
+    public ResponseEntity<?> reporteMonopatinesTiemposConPausas(@RequestParam(name = "orden", required = false) String orden, @RequestHeader(name = "Authorization") String token){
           try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesTiemposConPausas(orden));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesTiemposConPausas(orden, token));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
@@ -183,9 +183,9 @@ public class AdministracionControlador {
 
     @GetMapping("/reportes/monopatines/tiempos/sinPausas")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> reporteMonopatinesTiemposSinPausas(@RequestParam(name = "orden", required = false) String orden){
+    public ResponseEntity<?> reporteMonopatinesTiemposSinPausas(@RequestParam(name = "orden", required = false) String orden, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesTiemposSinPausas(orden));
+            return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.reporteMonopatinesTiemposSinPausas(orden, token));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }
