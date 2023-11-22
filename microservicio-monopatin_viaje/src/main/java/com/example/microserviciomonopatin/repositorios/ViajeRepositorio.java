@@ -22,7 +22,7 @@ public interface ViajeRepositorio extends CrudRepository<Viaje, Long> {
             """)
     List<ReporteMonopatinesXViaje> cantidadViajesMayorAXAño(Integer cantidad, Integer anio);
     @Query("""
-            SELECT new com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO(:mes1, :mes2, :anio, sum(v.costo_total_viaje))
+            SELECT new com.example.microserviciomonopatin.modelos.DTOS.ReporteFacturacionDTO(:mes1, :mes2, :anio, COALESCE(SUM(v.costo_total_viaje), 0 ))
             FROM Viaje v  
             WHERE (EXTRACT(month from v.fin) between :mes1 and :mes2) and EXTRACT(YEAR from v.fin) = :anio  
             """)

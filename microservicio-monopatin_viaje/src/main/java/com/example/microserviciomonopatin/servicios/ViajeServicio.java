@@ -135,7 +135,7 @@ public class ViajeServicio {
     }
 
     @Transactional
-    public Viaje finalizarViaje(Long id_viaje) throws Exception {
+    public Viaje finalizarViaje(Long id_viaje, String token) throws Exception {
         // Validamos que exista el viaje
         Optional<Viaje> posible_viaje_a_finalizar = this.traerPorId(id_viaje);
         if(posible_viaje_a_finalizar.isEmpty()){ throw new Exception("No existe el viaje con id " + id_viaje + "!!!"); }
@@ -144,6 +144,7 @@ public class ViajeServicio {
 
         // Nos traemos la cuenta por id
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> httpEntity = new HttpEntity<>(headers);
         ResponseEntity<Optional<Cuenta>> response = restTemplate.exchange(
                 "http://localhost:8004/cuentas/" + viaje_a_finalizar.getId_cuenta(),

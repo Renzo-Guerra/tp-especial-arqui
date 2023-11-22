@@ -22,7 +22,7 @@ public interface MonopatinRepositorio extends CrudRepository<Monopatin, Long> {
     List<MonopatinKilometrajeDTO> traerOrdenadosPorKilometrosASC();
 
     @Query("""
-            SELECT new com.example.microserviciomonopatin.modelos.DTOS.MonopatinKilometrajeDTO(m.id_monopatin, SUM(v.km_recorridos)) 
+            SELECT new com.example.microserviciomonopatin.modelos.DTOS.MonopatinKilometrajeDTO(m.id_monopatin,  SUM(v.km_recorridos)) 
             FROM Viaje v
             JOIN Monopatin m ON m.id_monopatin = v.id_monopatin
             WHERE v.fin IS NOT NULL

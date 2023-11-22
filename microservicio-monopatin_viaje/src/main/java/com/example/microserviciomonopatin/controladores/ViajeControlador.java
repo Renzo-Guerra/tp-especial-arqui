@@ -53,9 +53,9 @@ public class ViajeControlador {
 
     @PutMapping("/{id_viaje}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> finalizarViaje(@PathVariable Long id_viaje){
+    public ResponseEntity<?> finalizarViaje(@PathVariable Long id_viaje, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.finalizarViaje(id_viaje));
+            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.finalizarViaje(id_viaje, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

@@ -34,10 +34,8 @@ public class HttpConfig {
         http.addFilterBefore( new JwtFilter( jwtParser ), UsernamePasswordAuthenticationFilter.class);
         http.csrf( AbstractHttpConfigurer::disable )
                 .authorizeRequests()
-                    .requestMatchers( "monopatines" ).hasAuthority( AuthorityConstants.ADMIN )
-                    .requestMatchers( "monopatines" ).hasAuthority( AuthorityConstants.USER )
-                    .requestMatchers( "viajes" ).hasAuthority( AuthorityConstants.ADMIN )
-                    .requestMatchers( "viajes" ).hasAuthority( AuthorityConstants.USER )
+                    .requestMatchers( "monopatines" ).hasAnyAuthority( AuthorityConstants.ADMIN, AuthorityConstants.USER )
+                    .requestMatchers( "viajes" ).hasAnyAuthority( AuthorityConstants.ADMIN, AuthorityConstants.USER )
                     .anyRequest().authenticated();
         http.anonymous( AbstractHttpConfigurer::disable )
                 .sessionManagement( s -> s.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) );

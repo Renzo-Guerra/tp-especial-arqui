@@ -55,6 +55,16 @@ public class MonopatinControlador {
         }
     }
 
+    @GetMapping("/tiempos/sinPausas")
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
+    public ResponseEntity<?> traerOrdenadosPorTiempoSinPausas(@RequestParam(name = "orden", required = false) String orden){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(monopatinServicio.traerOrdenadosPorTiempoSinPausas(orden));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerPorId(@PathVariable("id") Long id_monopatin){

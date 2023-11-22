@@ -55,7 +55,6 @@ public class MonopatinServicio {
     // FIX: Falta validar que en caso de que se cambie el idgps, este no esté asignado a otro monopatin
     @Transactional
     public Monopatin editar(Long idMonopatin, Monopatin nuevaInfo) throws Exception {
-        System.out.println("La nueva es: " + nuevaInfo);
         this.validarEstado(nuevaInfo.getEstado());
         Monopatin monopatin_editar = this.traerPorId(idMonopatin);
 

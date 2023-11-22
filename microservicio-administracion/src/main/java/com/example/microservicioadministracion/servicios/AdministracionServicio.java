@@ -236,8 +236,23 @@ public class AdministracionServicio {
     }
 
     public List<MonopatinKilometrajeDTO> reporteMonopatinesOrderByKilometros(String orden, String token) throws Exception {
-        String url = "http://localhost:8002/monopatines/tiempos";
-        return (List<MonopatinKilometrajeDTO>) this.traerTiemposMonopatines(url, orden, token);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
+        HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
+        ResponseEntity<List<MonopatinKilometrajeDTO>> respuesta = restTemplate.exchange(
+                "http://localhost:8002/monopatines/kilometros",
+                HttpMethod.GET,
+                reqEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return respuesta.getBody();
+
+
+
+//        String url = "http://localhost:8001/monopatines/kilometros";
+//        return (List<MonopatinKilometrajeDTO>) this.traerTiemposMonopatines(url, orden, token);
     }
 
     public List<MonopatinTiempoFuncionamiento> reporteMonopatinesTiemposConPausas(String orden, String token) throws Exception {
