@@ -207,13 +207,15 @@ public class ViajeServicio {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Cambiamos el estado del monopatin a "disponible"
-        HttpEntity<Monopatin> httpEntity4 = new HttpEntity<>(monopatin, headers);
-        ResponseEntity<Monopatin> response4 = restTemplate.exchange(
-                "http://localhost:8002/monopatines/" + monopatin.getId_monopatin(),
-                HttpMethod.PUT,
-                httpEntity4,
-                new ParameterizedTypeReference<>() {});
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        this.monopatinServicio.editar(monopatin.getId_monopatin(), monopatin);
+
+//        HttpEntity<Monopatin> httpEntity4 = new HttpEntity<>(monopatin, headers);
+//        ResponseEntity<Monopatin> response4 = restTemplate.exchange(
+//                "http://localhost:8002/monopatines/" + monopatin.getId_monopatin(),
+//                HttpMethod.PUT,
+//                httpEntity4,
+//                new ParameterizedTypeReference<>() {});
+//        headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Damos por finalizado el viaje y devolvemos el viaje con todas sus columnas
         return viajeRepositorio.save(viaje_a_finalizar);
