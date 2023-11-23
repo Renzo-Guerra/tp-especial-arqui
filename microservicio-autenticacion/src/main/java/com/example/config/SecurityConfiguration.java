@@ -36,6 +36,8 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/authenticate").permitAll()
                 .requestMatchers("/api/register").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
             )
             .anonymous(AbstractHttpConfigurer::disable)
