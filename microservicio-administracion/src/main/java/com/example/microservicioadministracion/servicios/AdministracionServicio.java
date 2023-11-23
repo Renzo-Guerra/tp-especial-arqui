@@ -202,11 +202,11 @@ public class AdministracionServicio {
         Cuenta cuenta_editar = respuesta.getBody();
 
         // Si el estado de la cuenta es el mismo por el cual se quiere cambiar, directamente corta aca
-        if(cuenta_editar.getIsHabilitada().equals(Boolean.getBoolean(habilitada))){
+        if(cuenta_editar.getIsHabilitada().equals(Boolean.parseBoolean(habilitada))){
             return cuenta_editar;
         }
         // En caso de que fuese distinto, hay que setear el nuevo valor y guardar el cambio en el microservicio
-        cuenta_editar.setIsHabilitada(Boolean.getBoolean(habilitada));
+        cuenta_editar.setIsHabilitada(Boolean.parseBoolean(habilitada));
 
         HttpEntity<Cuenta> reqEntity2 = new HttpEntity<>(cuenta_editar, headers);
         ResponseEntity<Cuenta> respuesta2 = restTemplate.exchange(

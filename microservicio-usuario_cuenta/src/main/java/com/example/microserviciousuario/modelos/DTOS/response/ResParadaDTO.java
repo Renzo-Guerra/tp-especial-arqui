@@ -2,8 +2,10 @@ package com.example.microserviciousuario.modelos.DTOS.response;
 
 import com.example.microserviciousuario.modelos.DTOS.ParadaMongoDTO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class ResParadaDTO {
     private String id;
     private Double latitud;

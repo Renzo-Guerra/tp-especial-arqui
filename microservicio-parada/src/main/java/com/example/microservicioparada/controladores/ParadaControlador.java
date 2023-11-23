@@ -1,6 +1,7 @@
 package com.example.microservicioparada.controladores;
 
 import com.example.microservicioparada.modelos.DTOs.request.ReqParadaDTO;
+import com.example.microservicioparada.modelos.DTOs.response.ResParadaDTO;
 import com.example.microservicioparada.modelos.entidades.Parada;
 import com.example.microservicioparada.security.AuthorityConstants;
 import com.example.microservicioparada.servicios.ParadaServicio;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Data
@@ -21,7 +24,9 @@ public class ParadaControlador {
     @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerTodos(){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(paradaServicio.traerTodos());
+            List<ResParadaDTO> res = paradaServicio.traerTodos();
+            System.out.println(res.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(res);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
         }

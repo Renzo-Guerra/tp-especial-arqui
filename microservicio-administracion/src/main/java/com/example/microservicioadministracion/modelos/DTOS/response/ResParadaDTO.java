@@ -4,9 +4,10 @@ package com.example.microservicioadministracion.modelos.DTOS.response;
 import com.example.microservicioadministracion.modelos.DTOS.ParadaMongoDTO;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
-@Getter
+@NoArgsConstructor
 public class ResParadaDTO {
     private String id;
     private Double latitud;
