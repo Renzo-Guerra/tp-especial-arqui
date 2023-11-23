@@ -58,7 +58,11 @@ public interface MonopatinRepositorio extends CrudRepository<Monopatin, Long> {
     List<MonopatinTiempoFuncionamiento> traerOrdenadosPorTiempoSinPausasDESC();
 
     @Query("""
-            SELECT new com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionamiento(m.id_monopatin, LONG(SUM(v.fin) - SUM(v.inicio)), LONG((SUM(v.fin) - SUM(v.inicio)) - SUM(v.segundos_estacionado)), SUM(v.segundos_estacionado)) 
+            SELECT new com.example.microserviciomonopatin.modelos.DTOS.MonopatinTiempoFuncionamiento(
+                m.id_monopatin, 
+                CAST(SUM(v.fin) - SUM(v.inicio) AS LONG), 
+                CAST(SUM(v.fin) - SUM(v.inicio) - SUM(v.segundos_estacionado) AS LONG), 
+                CAST(SUM(v.segundos_estacionado) AS LONG)) 
             FROM Viaje v
             JOIN Monopatin m ON m.id_monopatin = v.id_monopatin
             WHERE v.fin IS NOT NULL

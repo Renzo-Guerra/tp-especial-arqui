@@ -5,6 +5,7 @@ import com.example.microservicioparada.modelos.DTOs.response.ResParadaDTO;
 import com.example.microservicioparada.modelos.entidades.ParadaMongo;
 import com.example.microservicioparada.repositorios.ParadaMongoRepositorio;
 import lombok.Data;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,21 +84,21 @@ public class ParadaServicio {
 
     // MIDDLEWARE Verifica que no exista una parada con la misma latitud y longitud
     private void middlewareCoordenadaExiste(Double latitud, Double longitud) throws Exception {
-        Optional<ParadaMongo> parada = this.paradaMongoRespositorio.traerPorCoordenadas(latitud, longitud);
+        List<ParadaMongo> parada = this.paradaMongoRespositorio.traerPorCoordenadas(latitud, longitud, PageRequest.of(0, 1));
 
-        if(parada.isPresent()){
-            throw new Exception("Ya existe la parada '" + parada.get().getId_parada() + "' con esa latitud y longitud!");
+        if(!parada.isEmpty()){
+            throw new Exception("Ya existe la parada '" + parada.get(0).getId_parada() + "' con esa latitud y longitud!");
         }
     }
 
     public ResParadaDTO buscarParadaPorCoordenadas(Double latitud, Double longitud) throws Exception {
         if(latitud == null || longitud == null){ throw new Exception("Latitud o longitud son nulas!!!"); }
-        Optional<ParadaMongo> posible_parada = this.paradaMongoRespositorio.traerPorCoordenadas(latitud, longitud);
+        List<ParadaMongo> posible_parada = this.paradaMongoRespositorio.traerPorCoordenadas(latitud, longitud, PageRequest.of(0, 1));
 
         if(posible_parada.isEmpty()){
             throw new Exception("No existe parada con esas coordenadas!");
         } else {
-            return new ResParadaDTO(posible_parada.get());
+            return new ResParadaDTO(posible_parada.get(0));
         }
 
 

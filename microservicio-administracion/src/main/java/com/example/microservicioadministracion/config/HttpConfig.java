@@ -35,7 +35,7 @@ public class HttpConfig {
         http.addFilterBefore( new JwtFilter( jwtParser ), UsernamePasswordAuthenticationFilter.class);
         http.csrf( AbstractHttpConfigurer::disable )
                 .authorizeRequests()
-                    .requestMatchers( "administracion" ).hasAuthority( AuthorityConstants.ADMIN )
+                    .requestMatchers( "administracion" ).hasAnyAuthority( AuthorityConstants.ADMIN, AuthorityConstants.USER )
                     .anyRequest().authenticated();
         http.anonymous( AbstractHttpConfigurer::disable )
                 .sessionManagement( s -> s.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) );

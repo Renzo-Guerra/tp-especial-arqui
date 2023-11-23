@@ -42,10 +42,10 @@ public class ViajeControlador {
     }
 
     @PostMapping("")
-    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
-    public ResponseEntity<?> crearViaje(@RequestBody CrearViajeDTO viaje){
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
+    public ResponseEntity<?> crearViaje(@RequestBody CrearViajeDTO viaje, @RequestHeader(name = "Authorization") String token){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.crearViaje(viaje));
+            return ResponseEntity.status(HttpStatus.OK).body(viajeServicio.crearViaje(viaje, token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

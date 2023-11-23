@@ -109,7 +109,7 @@ public class AdministracionControlador {
     }
 
     @GetMapping("/tarifas/ultima")
-    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.ADMIN + "\")" )
+    @PreAuthorize( "hasAnyAuthority(\"" + AuthorityConstants.USER + "\" , \"" + AuthorityConstants.ADMIN + "\")" )
     public ResponseEntity<?> traerUltimaTarifa(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administracionServicio.traerUltimaTarifaCreada());

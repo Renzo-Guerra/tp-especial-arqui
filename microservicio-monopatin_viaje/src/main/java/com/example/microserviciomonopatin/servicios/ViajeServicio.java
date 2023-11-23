@@ -39,7 +39,7 @@ public class ViajeServicio {
     }
 
     @Transactional
-    public Viaje crearViaje(CrearViajeDTO viaje) throws Exception {
+    public Viaje crearViaje(CrearViajeDTO viaje, String token) throws Exception {
         Monopatin monopatin = this.monopatinServicio.traerPorId(viaje.getId_monopatin());
 
         // Error, estado monopatin no disponible
@@ -47,6 +47,7 @@ public class ViajeServicio {
 
         // Traemos la cuenta:
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", token);
         HttpEntity<Void> reqEntity = new HttpEntity<>(headers);
         ResponseEntity<Cuenta> response = restTemplate.exchange(
                 "http://localhost:8004/cuentas/" + viaje.getId_cuenta(),
@@ -157,7 +158,6 @@ public class ViajeServicio {
 
         // Nos traemos el monopatin por id
         Monopatin monopatin = this.monopatinServicio.traerPorId(viaje_a_finalizar.getId_monopatin());
-
         // Validamos que el monopatin esté en una locacion valida para dejarse (una parada disponible)
         HttpEntity<Void> httpEntity2 = new HttpEntity<>(headers);
         ResponseEntity<Parada> response2 = restTemplate.exchange(
@@ -184,6 +184,11 @@ public class ViajeServicio {
         // Calcula la diferencia en minutos
         Duration duracion = Duration.between(fechaInicio, fechaFin);
         long minutosViaje = duracion.toMinutes();
+
+        // Por fines de ver si funciona bien, le agregamos 1 minuto al tiempo
+        // (para que en la cuenta no multiplique x 0, ya que al descontar dinero
+        // de la cuenta la cantidad debe ser positivo...)
+        minutosViaje += 1;
 
         Double costo_total = minutosViaje * viaje_a_finalizar.getTarifa();
         if(viaje_a_finalizar.getSegundos_estacionado() > (15*60)){
